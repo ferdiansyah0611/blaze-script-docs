@@ -1,0 +1,42 @@
+.index
+	@apply w-full
+	h1, h2, h3, h4, h5
+		@apply border-b-0 #{!important}
+
+	.introduction
+		h1
+			@apply text-purple-500 text-4xl mb-0 #{!important}
+		h2
+			@apply text-3xl mb-1 #{!important}
+		p
+			@apply font-medium
+		h1, h2
+			@apply font-bold
+		> div
+			@apply flex gap-2
+			a
+				@apply text-white p-2 font-medium #{!important}
+				text-decoration: unset !important
+			a:nth-child(1)
+				@apply bg-purple-700
+			a:nth-child(2)
+				@apply bg-gray-800
+	.features
+		@apply mt-4
+		.list
+			@apply grid sm:grid-cols-3 gap-2
+			> div
+				@apply bg-gray-900 p-2 text-center border border-gray-700
+
+	.contributor
+		@apply mt-4
+		.list
+			@apply grid sm:grid-cols-4 gap-2
+			> div
+				@apply bg-gray-800 p-2 text-center border border-gray-700 flex flex-col items-center
+				img
+					@apply rounded-full w-40 h-40
+				h5
+					@apply mb-0 mt-2 #{!important}
+				p
+					@apply text-gray-300

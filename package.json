@@ -1,0 +1,25 @@
+{
+  "name": "blaze-script",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "dev:h": "vite --host 0.0.0.0",
+    "build": "tsc && vite build",
+    "build:w": "tsc --watch && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.14",
+    "sass": "^1.54.0",
+    "tailwindcss": "^3.1.7",
+    "vite": "^2.9.0"
+  },
+  "dependencies": {
+    "dexie": "^3.2.2",
+    "html-escaper": "^3.0.3",
+    "lodash.isequalwith": "^4.4.0",
+    "showdown": "^2.1.0"
+  }
+}

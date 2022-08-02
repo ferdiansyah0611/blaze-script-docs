@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "Node",
+    "strict": false,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./",
+    "paths": {
+      "@blaze": ["./.blaze/index"],
+      "@blaze.d": ["./.blaze/blaze.d"],
+      "@blaze.utils": ["./.blaze/utils"],
+      "@blaze.router": ["./.blaze/router"],
+      "@root/*": ["./.blaze/*"],
+      "@route": ["./src/route"],
+      "@component/*": ["./src/component/*"],
+      "@style/*": ["./src/style/*"],
+      "@store/*": ["./src/store/*"],
+      "@app": ["./"],
+      "@/*": ["./src/*"]
+    },
+    "jsx": "preserve",
+    "isolatedModules": true,
+    "types": ["vite/client"]
+  },
+  "include": ["src", "src/*", "src/**/*", ".blaze/plugin/**.*"],
+  "exclude": ["node_modules"]
+}
