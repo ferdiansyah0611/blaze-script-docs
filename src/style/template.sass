@@ -6,23 +6,39 @@ $sidebar: 250px
 	#sidebar
 		max-width: $sidebar
 		width: 100%
-		@apply text-white sticky top-0 h-screen overflow-auto
+		@apply text-white sticky top-0 h-screen overflow-auto z-10
+		@media (max-width: theme('screens.md'))
+			@apply fixed
+			margin-top: 40px
 		background: #141414
 		transition: 1s all
 		&.close
 			margin-left: -$sidebar
 
 		.title
-			@apply font-bold p-2
+			@apply font-bold p-2 border-b border-gray-400
 		.detail
 			h5
 				@apply font-medium p-1 border-b border-gray-300 cursor-pointer
 			li
 				@apply flex
 			a
-				@apply p-1 flex-1 text-sm
+				@apply p-1 flex-1 text-sm hover:bg-gray-800
 		input
 			@apply bg-gray-900 text-white p-2 w-full outline-none text-sm
+
+		#overlay
+			@apply fixed left-0 top-0 h-screen
+			transition: 1s all
+			@media (max-width: theme('screens.md'))
+				&.open
+					@apply w-full
+					margin-left: $sidebar
+				&.close
+					margin-left: 100%
+			max-width: calc(100% - $sidebar)
+			background: #14141461
+			backdrop-filter: blur(16px) saturate(150%)
 
 	#navbar
 		@apply sticky top-0 flex border-b border-gray-500 w-full z-10
@@ -57,8 +73,10 @@ $sidebar: 250px
 
 	#container
 		@apply w-full
-		max-width: calc(100% - $sidebar)
 		transition: 1s all
+		@media (min-width: theme('screens.md'))
+			&:not(.open)
+				max-width: calc(100% - $sidebar)
 		&.close
 			max-width: 100%
 

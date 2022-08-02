@@ -9,6 +9,8 @@ export default function Sidebar() {
 	MediaQuery("(max-width: 768px", (matches) => {
 		if(matches) {
 			this.ctx.app.openMenu = false
+		} else {
+			this.ctx.app.openMenu = true
 		}
 	}, this)
 	mount(() => {
@@ -36,9 +38,7 @@ export default function Sidebar() {
 			<div class="title">
 				<p>Blaze Script</p>
 			</div>
-			<div>
-				<input placeholder="Search Documentation" type="search"/>
-			</div>
+			<div toggle="ctx.app.openMenu" id="overlay" class={this.ctx.app.openMenu ? 'open' : 'close'}></div>
 			{this.ctx.app.menu.map((item) => (
 				<ItemList key={item.text} active={this.ctx.app.active} item={item} />
 			))}
