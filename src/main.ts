@@ -32,14 +32,19 @@ declare global {
     }
 }
 
-import Apps from "@/Apps";
+import MyApp from "@/Apps";
 import "./style/app.sass";
+import { createApp } from "@root/render";
+import { makeRouter, startIn } from "@root/plugin/router";
+import withError from "@root/plugin/error";
 
-// hmr
-if (import.meta.hot) {
-    import.meta.hot.accept((modules) => {
-        if (modules.default) modules.default();
-    });
-}
-
-Apps();
+const app = new createApp("#app", MyApp, {
+    dev: false,
+});
+app.use(withError());
+app.use(
+    makeRouter("#route", {
+        auto: true,
+    })
+);
+app.mount();

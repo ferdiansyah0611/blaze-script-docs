@@ -1,7 +1,34 @@
 import { defineConfig } from "vite";
 import path from "path";
 
+const fileRegex = /\.tsx$/
+
+function blazePlugin() {
+  return {
+    name: 'transform-file',
+
+    transform(src, id) {
+      if (fileRegex.test(id)) {
+        src += `
+if (import.meta.hot) {
+    import.meta.hot.accept((modules) => {
+        window.$hmr = modules.default
+        window.$createApp.forEach((app) => {
+          app.reload()
+        })
+    });
+}`
+        return {
+          code: src,
+          map: null
+        }
+      }
+    }
+  }
+}
+
 export default defineConfig({
+  plugins: [blazePlugin()],
   resolve: {
     alias: {
       "@blaze": path.resolve(__dirname, "./.blaze"),

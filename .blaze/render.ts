@@ -1,5 +1,7 @@
-import { rendering } from "./core";
+import { rendering, unmountCall, mountCall } from "./core";
 import { Component, InterfaceApp, InterfaceBlaze } from "./blaze.d";
+import { diffChildren } from "./diff";
+import { state } from "./utils";
 
 /**
  * @App
@@ -21,6 +23,57 @@ export class createApp implements InterfaceApp {
 			this.config.key = 0;
 		}
 	}
+	reload() {
+		const componentAssign = (component, newComponent) => {
+			Object.keys(component).forEach((name) => {
+				if (name === "$config") {
+					newComponent.$config = component.$config;
+					return;
+				}
+				if (["$node", "render", "ctx"].includes(name)) {
+					return;
+				}
+				if(name === '$deep') {
+					Object.assign(newComponent.$deep, component.$deep);
+					return;
+				}
+				newComponent[name] = component[name];
+			});
+			return newComponent;
+		}
+
+		if (window.$hmr.name === this.component.name) {
+			let component = window.$app[this.config.key || 0];
+			let newComponent = new window.$hmr(component);
+			componentAssign(component, newComponent);
+			unmountCall(component.$deep);
+			const result = rendering(newComponent, component.$deep, false, {}, 0, window.$hmr);
+			diffChildren(component.$node, result, newComponent);
+			newComponent.$node = component.$node;
+			window.$app[this.config.key || 0] = newComponent;
+			mountCall(newComponent.$deep);
+			return;
+		}
+		const checkComponent = (sub) => {
+			let component = sub.component;
+			component.$deep.registry = component.$deep.registry.map(checkComponent);
+			if (component.constructor.name === window.$hmr.name) {
+				let newComponent = new window.$hmr(component, window.$app[component.$config?.key || 0]);
+				componentAssign(component, newComponent);
+				unmountCall(component.$deep);
+				let data = {};
+				const result = rendering(newComponent, component.$deep, false, data, sub.key, window.$hmr);
+				diffChildren(component.$node, result, newComponent);
+				newComponent.$node = component.$node;
+				newComponent.$node.$children = newComponent;
+				sub.component = newComponent;
+				mountCall(newComponent.$deep);
+			}
+			return sub;
+		};
+		window.$app[this.config.key].$deep.registry = window.$app[this.config.key].$deep.registry.map(checkComponent);
+		window.$hmr = {};
+	}
 	mount() {
 		const load = (hmr = false) => {
 			let app = new this.component();
@@ -29,9 +82,11 @@ export class createApp implements InterfaceApp {
 			if (!window.$app) {
 				window.$app = [];
 				window.$blaze = [];
+				window.$createApp = [];
+				window.$app[this.config.key] = app;
+				window.$createApp[this.config.key] = this;
+				window.$blaze[this.config.key] = this.blaze;
 			}
-			window.$app[this.config.key] = app;
-			window.$blaze[this.config.key] = this.blaze;
 			// run plugin
 			this.plugin.forEach((plugin: any) =>
 				plugin(window.$app[this.config.key], window.$blaze[this.config.key], hmr, this.config.key)
@@ -42,14 +97,13 @@ export class createApp implements InterfaceApp {
 
 			let query = document.querySelector(this.el);
 			query.replaceChildren(window.$app[this.config.key].$node);
-
 			app.$deep.mounted(false, hmr);
 
 			this.blaze.runAfterAppReady(app);
 		};
 
 		if (window.$app) {
-			window.$app[this.config.key].$deep.remove();
+			window.$app[this.config.key].$deep.remove(true, true);
 			this.blaze._onReload(window.$app[this.config.key]);
 			load(true);
 			return;

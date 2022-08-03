@@ -18,7 +18,7 @@ export default function Navbar() {
 				}
 			</div>
 			<div class="right">
-				<a href="/">Sponsor</a>
+				<a href="/">Sponsorpp</a>
 				<a href="/">Github</a>
 			</div>
 		</div>

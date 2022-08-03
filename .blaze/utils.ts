@@ -33,7 +33,7 @@ export const state = function (name: string | any, initial: any, component: Comp
 			{ ...initial, _isContext: true },
 			{
 				set(a: any, b: string, c: any) {
-					if(a[b] === c) return true;
+					if (a[b] === c) return true;
 
 					a[b] = c;
 					registry.forEach((register: Component) => {
@@ -73,7 +73,7 @@ export const state = function (name: string | any, initial: any, component: Comp
 				{ ...initial, _isProxy: true },
 				{
 					set(a, b, c) {
-						if(a[b] === c) return true;
+						if (a[b] === c) return true;
 
 						let allowed = !component.$deep.batch && !component.$deep.disableTrigger;
 						if (allowed) {
@@ -122,11 +122,20 @@ export const context = (entry: string, defaultContext: any, action: any) => {
 			}
 			component.$deep.dispatch[entry] = action;
 		}
+		if (window.$hmr) {
+			registery = registery.map((item) => {
+				if (item.constructor.name === window.$hmr.name) {
+					Object.assign(item, item.$node.$children);
+				}
+				return item;
+			});
+			return;
+		}
 		let index = registery.push(component);
 		component.ctx[entry] = values;
 
 		component.$deep.unmount.push(() => {
-			registery = registery.filter((_a, b) => b !== (index - 1));
+			registery = registery.filter((_a, b) => b !== index - 1);
 		});
 	};
 };
@@ -324,4 +333,4 @@ export const lazy = (callback: () => any) => {
 
 export const defineProp = (props: any, component: Component) => {
 	component.props = props;
-}
+};
