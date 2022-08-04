@@ -18,10 +18,6 @@ const diff = function (prev: HTMLElement, el: HTMLElement, component: Component)
 	if (!prev || !el) {
 		return batch;
 	}
-	// if(window.$hmr && prev.$children && window.$hmr.name === prev.$children.constructor.name) {
-	// 	console.log('sama', prev.$children, el);
-	// 	prev.replaceWith(el)
-	// }
 	if (prev.nodeName !== el.nodeName) {
 		batch.push(() => prev.replaceWith(el));
 		return batch;

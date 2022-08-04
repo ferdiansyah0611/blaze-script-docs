@@ -1,34 +1,9 @@
 import { defineConfig } from "vite";
 import path from "path";
-
-const fileRegex = /\.tsx$/
-
-function blazePlugin() {
-  return {
-    name: 'transform-file',
-
-    transform(src, id) {
-      if (fileRegex.test(id)) {
-        src += `
-if (import.meta.hot) {
-    import.meta.hot.accept((modules) => {
-        window.$hmr = modules.default
-        window.$createApp.forEach((app) => {
-          app.reload()
-        })
-    });
-}`
-        return {
-          code: src,
-          map: null
-        }
-      }
-    }
-  }
-}
+import hmr from "./.blaze/hmr"
 
 export default defineConfig({
-  plugins: [blazePlugin()],
+  plugins: [hmr()],
   resolve: {
     alias: {
       "@blaze": path.resolve(__dirname, "./.blaze"),

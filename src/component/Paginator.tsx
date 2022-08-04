@@ -3,7 +3,7 @@ import app from "@store/app";
 
 export default function Paginator() {
 	const { render, state, watch, batch } = init(this);
-	app(this);
+	app(['active', 'menu'], this);
 	state(null, {
 		open: true,
 		previous: {},

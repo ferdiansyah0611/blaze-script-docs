@@ -18,8 +18,8 @@ export default function Index() {
 			},
 			{
 				icon: "🛠️",
-				title: "HMR & Hot Reload",
-				details: "With HMR & Hot Reload makes the development process faster",
+				title: "Auto Dependencies",
+				details: "With auto dependencies makes the development process faster",
 			},
 		],
 		members: [

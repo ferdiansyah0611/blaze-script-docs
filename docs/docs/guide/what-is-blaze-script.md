@@ -11,6 +11,7 @@
 -   JSX Syntax
 -   Batch
 -   Navigation, Cache Request, Error Handling And More
+-   Auto Dependencies
 
 ## Installation
 
@@ -23,28 +24,28 @@ By default, typescript is not installed in node_modules and we use tsc globally.
 ## Get Started
 
 ```tsx
+// Apps.tsx
 import App, { init } from "@blaze";
-import { createApp } from '@root/render';
+import { createApp } from "@root/render";
 import withError from "@root/plugin/error";
 
-const Hello = function () {
+export default function Apps() {
     const { render } = init(this);
-    render(
-        () => (
-            <p>Hello World</p>
-        )
-    );
-};
+    render(() => <p>Hello World</p>);
+}
+```
+
+```tsx
+// main.ts
+import MyApp from "@/Apps";
+import { createApp } from "@root/render";
+import withError from "@root/plugin/error";
 
 const app = new createApp("#app", MyApp, {
-    dev: false
+    dev: false,
 });
-export default function Apps() {
-    app.use(withError());
-    app.mount();
-    
-    return app;
-}
+app.use(withError());
+app.mount();
 ```
 
 ## Information

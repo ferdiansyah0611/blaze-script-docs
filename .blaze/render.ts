@@ -1,7 +1,6 @@
 import { rendering, unmountCall, mountCall } from "./core";
 import { Component, InterfaceApp, InterfaceBlaze } from "./blaze.d";
 import { diffChildren } from "./diff";
-import { state } from "./utils";
 
 /**
  * @App
@@ -30,11 +29,11 @@ export class createApp implements InterfaceApp {
 					newComponent.$config = component.$config;
 					return;
 				}
-				if (["$node", "render", "ctx"].includes(name)) {
+				if (["$node", "render", "children"].includes(name)) {
 					return;
 				}
 				if(name === '$deep') {
-					Object.assign(newComponent.$deep, component.$deep);
+					Object.assign(newComponent[name], component[name]);
 					return;
 				}
 				newComponent[name] = component[name];
@@ -47,7 +46,7 @@ export class createApp implements InterfaceApp {
 			let newComponent = new window.$hmr(component);
 			componentAssign(component, newComponent);
 			unmountCall(component.$deep);
-			const result = rendering(newComponent, component.$deep, false, {}, 0, window.$hmr);
+			const result = rendering(newComponent, component.$deep, false, {}, 0, window.$hmr, component.children);
 			diffChildren(component.$node, result, newComponent);
 			newComponent.$node = component.$node;
 			window.$app[this.config.key || 0] = newComponent;
@@ -62,7 +61,7 @@ export class createApp implements InterfaceApp {
 				componentAssign(component, newComponent);
 				unmountCall(component.$deep);
 				let data = {};
-				const result = rendering(newComponent, component.$deep, false, data, sub.key, window.$hmr);
+				const result = rendering(newComponent, component.$deep, false, data, sub.key, window.$hmr, component.children);
 				diffChildren(component.$node, result, newComponent);
 				newComponent.$node = component.$node;
 				newComponent.$node.$children = newComponent;

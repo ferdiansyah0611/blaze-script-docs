@@ -5,7 +5,7 @@ import MediaQuery from "@root/plugin/mediaquery"
 
 export default function Sidebar() {
 	const { render, mount, dispatch, watch } = init(this);
-	app(this);
+	app(['openMenu', 'menu', 'active'], this);
 	MediaQuery("(max-width: 768px", (matches) => {
 		if(matches) {
 			this.ctx.app.openMenu = false

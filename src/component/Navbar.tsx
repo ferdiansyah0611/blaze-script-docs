@@ -3,8 +3,7 @@ import app from "@store/app";
 
 export default function Navbar() {
 	const { render } = init(this);
-	app(this);
-
+	app(['openMenu'], this);
 	render(() => (
 		<div id="navbar">
 			<div class="left">
@@ -18,7 +17,7 @@ export default function Navbar() {
 				}
 			</div>
 			<div class="right">
-				<a href="/">Sponsorpp</a>
+				<a href="/">Sponsor</a>
 				<a href="/">Github</a>
 			</div>
 		</div>

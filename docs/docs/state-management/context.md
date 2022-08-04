@@ -9,6 +9,9 @@ const user = context(
     "user",
     {
         email: "admin@gmail.com",
+        info: {
+            name: 'ferdiansyah'
+        }
     },
     {
         update(state, data) {
@@ -30,4 +33,20 @@ const Hello = function () {
         )
     );
 };
+```
+
+## Optimize Memory
+
+To prevent useless rendering, use array where do you want trigger.
+
+```tsx
+// trigger only email changed.
+user(['email'], this);
+```
+
+## Destruction State
+
+```tsx
+const { info } = user(['email', 'info'], this);
+info.name = "safina sahda"
 ```

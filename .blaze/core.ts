@@ -16,14 +16,14 @@ import {
 	getBlaze,
 } from "./utils";
 import e from "./blaze";
-import { Component, Mount } from "./blaze.d";
+import { Component, Mount, RegisteryComponent } from "./blaze.d";
 import { diffChildren } from "./diff";
 
 /**
  * @init
  * setup/initialize a component
  */
-export const init = (component: Component) => {
+export const init = (component: Component, _auto?: string) => {
 	if (!component.$deep) {
 		component.$deep = {
 			update: 0,
@@ -60,12 +60,12 @@ export const init = (component: Component) => {
 						}
 					});
 				});
-				component.$deep.registry.forEach((item) => {
+				component.$deep.registry.forEach((item: RegisteryComponent) => {
 					item.component.$deep.mounted(update, hmr);
 				});
 			},
 			remove: (notClear = false, notNode = false) => {
-				component.$deep.registry.forEach((item) => {
+				component.$deep.registry.forEach((item: RegisteryComponent) => {
 					item.component.$deep.remove(notClear, notNode);
 				});
 				unmountCall(component.$deep);

@@ -31,7 +31,7 @@ const App = context("app", {
 				{ text: "Computed", link: "/doc/computed" },
 				{ text: "Event Listener", link: "/doc/event" },
 				{ text: "Handling Input", link: "/doc/input" },
-				{ text: "Short Code", link: "/doc/short" },
+				{ text: "Short Code & Auto Dependencies", link: "/doc/short" },
 				{ text: "Multiple App", link: "/doc/multiple-app" },
 			],
 		},
@@ -73,7 +73,10 @@ const App = context("app", {
 		},
 	],
 	active: '/',
-	openMenu: true
+	openMenu: true,
+	test: {
+		ok: 1
+	}
 }, {
 	active(state, data){
 		state.active = data

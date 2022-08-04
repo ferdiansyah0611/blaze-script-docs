@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { init } from "@blaze";
 import { startIn } from "@root/plugin/router";
 import "@style/template.sass";
@@ -8,10 +9,14 @@ import Paginator from "@component/Paginator";
 
 import apps from "@store/app";
 
+export const Hehe = function(){
+	console.log('hehe');
+}
+
 export default function MyApp() {
-	const { watch, state, mount, batch, render } = init(this);
+	init(this, "auto");
 	startIn(this);
-	apps(this);
+	apps(['active'], this);
 	state(null, {
 		open: false,
 	});
