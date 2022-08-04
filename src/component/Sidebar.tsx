@@ -4,7 +4,7 @@ import ItemList from "./ItemList";
 import MediaQuery from "@root/plugin/mediaquery"
 
 export default function Sidebar() {
-	const { render, mount, dispatch, watch } = init(this);
+	const { render, watch } = init(this);
 	app(['openMenu', 'menu', 'active'], this);
 	MediaQuery("(max-width: 768px", (matches) => {
 		if(matches) {
@@ -13,15 +13,6 @@ export default function Sidebar() {
 			this.ctx.app.openMenu = true
 		}
 	}, this)
-	mount(() => {
-		dispatch('app.active', location.pathname)
-		this.$router.onChange(data => {
-			dispatch('app.active', data)
-		})
-		return() => {
-			console.log('sidebar unmount');
-		}
-	})
 	watch(['ctx.app.openMenu'], (_a, b) => {
 		let c = document.querySelector('#container')
 		if(c) {

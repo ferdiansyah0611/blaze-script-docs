@@ -276,6 +276,20 @@ export const makeRouter = (entry: string, config: any, dev: boolean = false) => 
 		blaze.everyMakeComponent.push((component) => {
 			component.$router = tool;
 		});
+
+		/**
+		 * @onReload
+		 * hot reload
+		 */
+		blaze.onReload.push((updateComponent: any[]) => {
+			updateComponent.forEach(newComponent => {
+				let component = app.$router.history.at(0).current
+				let createApp = window.$createApp[keyApp];
+				if(newComponent.name === component.constructor.name && createApp.isComponent(newComponent)) {
+					createApp.componentProcess({ component, newComponent, key: 0 });
+				}
+			})
+		})
 	};
 };
 

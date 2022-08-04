@@ -9,10 +9,6 @@ import Paginator from "@component/Paginator";
 
 import apps from "@store/app";
 
-export const Hehe = function(){
-	console.log('hehe');
-}
-
 export default function MyApp() {
 	init(this, "auto");
 	startIn(this);
@@ -21,11 +17,12 @@ export default function MyApp() {
 		open: false,
 	});
 	mount(() => {
-		console.log("mount MyApp");
-	});
-	watch(["ctx.app.active"], (_a, b) => {
-		batch(() => {
-			this.state.open = b === "/";
+		dispatch('app.active', location.pathname)
+		this.state.open = location.pathname === "/";
+
+		this.$router.onChange(data => {
+			this.state.open = data === "/";
+			dispatch('app.active', data)
 		});
 	});
 	render(() => (
@@ -33,8 +30,8 @@ export default function MyApp() {
 			{!this.state.open && <Sidebar />}
 			<div class={!this.state.open ? "close" : ""} id="container">
 				<Navbar open={!this.state.open} />
-				<Paginator open={!this.state.open} />
 				<div d skip id="route"></div>
+				<Paginator open={!this.state.open} />
 				<Footer />
 			</div>
 		</div>
