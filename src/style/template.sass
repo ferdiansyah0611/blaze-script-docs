@@ -1,4 +1,4 @@
-$sidebar: 250px
+$sidebar: 280px
 
 .app
 	@apply flex
@@ -6,25 +6,27 @@ $sidebar: 250px
 	#sidebar
 		max-width: $sidebar
 		width: 100%
-		@apply text-white sticky top-0 h-screen overflow-auto z-10 pb-20
+		@apply text-white sticky top-0 h-screen overflow-auto z-10 pb-20 bg-black
 		@media (max-width: theme('screens.md'))
 			@apply fixed
 			height: calc(100vh - 40px)
 			margin-top: 40px
-		background: #141414
 		transition: 1s all
 		&.close
 			margin-left: -$sidebar
 
 		.title
-			@apply font-bold p-2 border-b border-gray-400
+			@apply font-bold p-2 border-b border-gray-400 sticky top-0 bg-black
 		.detail
+			@apply px-2
 			h5
-				@apply font-medium p-1 border-b border-gray-300 cursor-pointer
+				@apply font-medium p-1 border-b border-gray-500 cursor-pointer
 			li
 				@apply flex
 			a
-				@apply p-1 flex-1 text-sm hover:bg-gray-800
+				@apply p-1 flex-1 text-sm hover:bg-gray-900 text-gray-200
+			a.active
+				@apply text-gray-200 border-purple-800 border-l-4 bg-gray-900
 		input
 			@apply bg-gray-900 text-white p-2 w-full outline-none text-sm
 

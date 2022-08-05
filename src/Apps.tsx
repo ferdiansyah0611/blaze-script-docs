@@ -6,12 +6,13 @@ import Sidebar from "@component/Sidebar";
 import Navbar from "@component/Navbar";
 import Footer from "@component/Footer";
 import Paginator from "@component/Paginator";
+import Loader from "@component/Loader";
 
 import apps from "@store/app";
 
 export default function MyApp() {
 	init(this, "auto");
-	startIn(this);
+	startIn(this, 0, Loader);
 	apps(["active"], this);
 	state(null, {
 		open: false,

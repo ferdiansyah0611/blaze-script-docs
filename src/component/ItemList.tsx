@@ -22,7 +22,7 @@ export default function ItemList() {
 					<ul>
 						{item.items.map((children) => (
 							<li>
-								<a class={active === children.link ? "text-gray-200 ml-2" : ""} data-link href={children.link}>
+								<a class={active === children.link ? "active" : ""} data-link href={children.link}>
 									{children.text}
 								</a>
 							</li>

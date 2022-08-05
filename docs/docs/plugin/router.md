@@ -76,6 +76,15 @@ app.use(
 );
 ```
 
+### Loader
+
+```tsx
+import Loader from "path/component/Loader";
+
+let keyApp = 0;
+startIn(this, keyApp, Loader);
+```
+
 ## Change page
 
 ```tsx
