@@ -6,9 +6,10 @@ $sidebar: 250px
 	#sidebar
 		max-width: $sidebar
 		width: 100%
-		@apply text-white sticky top-0 h-screen overflow-auto z-10
+		@apply text-white sticky top-0 h-screen overflow-auto z-10 pb-20
 		@media (max-width: theme('screens.md'))
 			@apply fixed
+			height: calc(100vh - 40px)
 			margin-top: 40px
 		background: #141414
 		transition: 1s all

@@ -12,17 +12,21 @@ import apps from "@store/app";
 export default function MyApp() {
 	init(this, "auto");
 	startIn(this);
-	apps(['active'], this);
+	apps(["active"], this);
 	state(null, {
 		open: false,
 	});
 	mount(() => {
-		dispatch('app.active', location.pathname)
-		this.state.open = location.pathname === "/";
+		batch(() => {
+			dispatch("app.active", location.pathname);
+			this.state.open = location.pathname === "/";
+		});
 
-		this.$router.onChange(data => {
-			this.state.open = data === "/";
-			dispatch('app.active', data)
+		this.$router.onChange((data) => {
+			batch(() => {
+				dispatch("app.active", data);
+				this.state.open = data === "/";
+			});
 		});
 	});
 	render(() => (

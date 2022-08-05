@@ -14,7 +14,10 @@ export default function ItemList() {
 		const { item, active } = this.props;
 		return (
 			<div class="detail">
-				<h5 toggle="state.open">{item.text}</h5>
+				<h5 class="flex" toggle="state.open">
+					<span class="flex-1">{item.text}</span>
+					<span class="material-symbols-outlined">{this.state.open ? 'expand_less' : 'expand_more'}</span>
+				</h5>
 				{this.state.open && (
 					<ul>
 						{item.items.map((children) => (
