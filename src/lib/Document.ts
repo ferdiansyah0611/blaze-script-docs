@@ -1,6 +1,5 @@
 import Markdown from "@/lib/Markdown";
-import { rendering } from "@root/core";
-import { addComponent } from "@root/plugin/extension";
+import { EntityRender } from "@root/core";
 
 export default function Document(Index, Container) {
     return {
@@ -9,29 +8,38 @@ export default function Document(Index, Container) {
                 check,
                 page,
                 entry,
-                replaceOrPush,
                 keyApplication,
                 app,
-                removeCurrentRouter,
-                beforeEach,
-                afterEach,
-                changeRun,
+
+                EntityRouter,
+                popstate,
+                tool
             } = action;
 
-            if(urlRequest === '/') {
-                replaceOrPush(urlRequest);
+            const entity = new EntityRouter(app, {}, tool);
 
-                const component = new Index(window.$app[keyApplication]);
-                component.$config = window.$app[keyApplication].$config;
-
-                rendering(component, null, true, {}, 0, component.constructor, []);
-                const query = document.querySelector(entry);
-                query.replaceChildren(component.$node);
-                component.$deep.mounted(false, app.$router.hmr);
-
-                app.$router.history.push({ url: urlRequest, current: component });
-                changeRun(app, urlRequest);
-
+            if (urlRequest === "/") {
+                const index = new EntityRender(Index, {
+                    arg: [window.$app[keyApplication]],
+                    key: keyApplication,
+                });
+                index
+                    .before(() => {
+                        entity.removePrevious();
+                        entity.handling(urlRequest, popstate);
+                    })
+                    .start()
+                    .compile({
+                        first: true,
+                        key: 0,
+                    })
+                    .replaceChildren(entry)
+                    .mount(app.$router.hmr)
+                    .saveToExtension()
+                    .done(function () {
+                        entity.add(urlRequest, this.component);
+                        EntityRouter.change(app, urlRequest);
+                    });
                 return;
             }
 
@@ -62,33 +70,36 @@ export default function Document(Index, Container) {
                 }
             }
 
-            const { result, isValid, params } = check(config, urlRequest);
+            const { result } = check(config, urlRequest);
 
             if (result) {
-                beforeEach(result);
-                replaceOrPush(urlRequest);
-
-                const html = Markdown(result.component);
-                const component = new Container();
-                component.html = html
-                component.url = urlRequest
-                component.$config = window.$app[keyApplication].$config;
-
-                rendering(component, null, true, {}, 0, component.constructor, []);
-                const query = document.querySelector(entry);
-                query.replaceChildren(component.$node);
-                component.$deep.mounted(false, app.$router.hmr);
-
-                addComponent(component);
-                afterEach(result.config);
-
-                if (app.$router.history.length) {
-                    removeCurrentRouter(app.$router);
-                }
-
-                app.$router.history.push({ url: urlRequest, current: component });
-                changeRun(app, urlRequest);
-                return;
+                const container = new EntityRender(Container, {
+                    inject: {
+                        html: Markdown(result.component),
+                        url: urlRequest,
+                    },
+                    arg: [],
+                    key: keyApplication,
+                });
+                container
+                    .before(() => {
+                        entity.beforeEach(result.config);
+                        entity.removePrevious();
+                        entity.handling(urlRequest, popstate);
+                    })
+                    .start()
+                    .compile({
+                        first: true,
+                        key: 0,
+                    })
+                    .replaceChildren(entry)
+                    .mount(app.$router.hmr)
+                    .saveToExtension()
+                    .done(function () {
+                        entity.afterEach(result.config);
+                        entity.add(urlRequest, this.component);
+                        EntityRouter.change(app, urlRequest);
+                    });
             }
         },
     };
