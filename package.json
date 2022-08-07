@@ -17,8 +17,6 @@
     "vite": "^2.9.0"
   },
   "dependencies": {
-    "dexie": "^3.2.2",
-    "html-escaper": "^3.0.3",
     "lodash.isequalwith": "^4.4.0",
     "showdown": "^2.1.0"
   }

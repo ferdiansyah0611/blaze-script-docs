@@ -29,7 +29,7 @@ const App = context(
 					{ text: "Attribute", link: "/doc/attribute" },
 					{ text: "List Rendering", link: "/doc/list-rendering" },
 					{ text: "Batch", link: "/doc/batch" },
-					{ text: "Watch", link: "/doc/watch" },
+					{ text: "Watch & Effect", link: "/doc/watch" },
 					{ text: "Computed", link: "/doc/computed" },
 					{ text: "Event Listener", link: "/doc/event" },
 					{ text: "Handling Input", link: "/doc/input" },

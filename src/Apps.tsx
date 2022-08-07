@@ -15,7 +15,7 @@ export default function MyApp() {
 	startIn(this, 0, Loader);
 	apps(["active"], this);
 	state(null, {
-		open: false,
+		open: true,
 	});
 	mount(() => {
 		batch(() => {
@@ -30,6 +30,9 @@ export default function MyApp() {
 			});
 		});
 	});
+	effect(() => {
+		console.log(this.state.open);
+	}, this)
 	render(() => (
 		<div className="app">
 			{!this.state.open && <Sidebar />}

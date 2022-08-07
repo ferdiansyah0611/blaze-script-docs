@@ -23,3 +23,14 @@ By default, watch listener automatic clear on unmount lifecycle. But if you want
 ```tsx
 statusProps.clear();
 ```
+
+# Effect
+
+Similar with watch, but effect is automatic without write dependencies
+
+```tsx
+import { effect } from "@blaze";
+effect(() => {
+    console.log(this.props.status);
+}, this)
+```

@@ -1,5 +1,5 @@
 import Markdown from "@/lib/Markdown";
-import { EntityRender } from "@root/core";
+import { EntityRender } from "@root/system/core";
 
 export default function Document(Index, Container) {
     return {
