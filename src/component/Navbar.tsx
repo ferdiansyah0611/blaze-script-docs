@@ -18,7 +18,7 @@ export default function Navbar() {
 			</div>
 			<div class="right">
 				<a href="/">Sponsor</a>
-				<a href="/">Github</a>
+				<a href="https://github.com/ferdiansyah0611/blaze-script">Github</a>
 			</div>
 		</div>
 	));

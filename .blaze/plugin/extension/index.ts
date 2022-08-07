@@ -72,7 +72,7 @@ export const withExtension = (entry: string, enabled: boolean) => {
 				}
 			};
 		});
-		blaze.afterAppReady.push((component) => {
+		blaze.onAfterAppReady.push((component) => {
 			addComponent(component, true);
 		});
 		blaze.onReload.push((component) => {

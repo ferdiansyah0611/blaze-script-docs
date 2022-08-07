@@ -1,5 +1,6 @@
 import Markdown from "@/lib/Markdown";
 import { EntityRender } from "@root/system/core";
+import { App } from "@root/system/global";
 
 export default function Document(Index, Container) {
     return {
@@ -20,7 +21,7 @@ export default function Document(Index, Container) {
 
             if (urlRequest === "/") {
                 const index = new EntityRender(Index, {
-                    arg: [window.$app[keyApplication]],
+                    arg: [App.get(keyApplication, 'app')],
                     key: keyApplication,
                 });
                 index
@@ -78,7 +79,7 @@ export default function Document(Index, Container) {
                         html: Markdown(result.component),
                         url: urlRequest,
                     },
-                    arg: [],
+                    arg: [App.get(keyApplication, 'app')],
                     key: keyApplication,
                 });
                 container

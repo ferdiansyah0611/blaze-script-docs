@@ -15,6 +15,7 @@ Supporting function in init
 -   batch
 -   state
 -   watch
+-   effect
 -   computed
 
 ## Short

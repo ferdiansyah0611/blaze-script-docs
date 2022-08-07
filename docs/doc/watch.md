@@ -26,11 +26,20 @@ statusProps.clear();
 
 # Effect
 
-Similar with watch, but effect is automatic without write dependencies
+Similar with watch, but effect is automatic without write array dependencies.
 
 ```tsx
 import { effect } from "@blaze";
 effect(() => {
     console.log(this.props.status);
+}, this)
+```
+
+Don't update with same state/props/context. Error callstack size.
+
+```tsx
+import { effect } from "@blaze";
+effect(() => {
+    this.props.status = !this.props.status
 }, this)
 ```

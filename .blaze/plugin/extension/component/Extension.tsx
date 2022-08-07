@@ -2,6 +2,7 @@ import { init, batch } from "@blaze";
 import InputExtension from "./InputExtension";
 import ListExtension from "./ListExtension";
 import Testing from "./Testing";
+import { App } from "@root/system/global";
 
 const exception = ["$name", "$children", "$root", "$index", "_isProxy", "fallback"];
 
@@ -341,8 +342,9 @@ const computedExtension = (computed, keyApp) => {
 				},
 				resizeBody: () => {
 					setTimeout(() => {
-						if (window.$app[keyApp].$node) {
-							window.$app[keyApp].$node.style.marginBottom = `${this.$node.offsetHeight}px`;
+						let node = App.get(keyApp, 'app')
+						if (node.$node) {
+							node.$node.style.marginBottom = `${this.$node.offsetHeight}px`;
 						}
 					}, 1000);
 				},

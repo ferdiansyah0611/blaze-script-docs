@@ -1,6 +1,7 @@
 import { EntityRender } from "@root/system/core";
 import { mount } from "@blaze";
 import { Component } from "@root/blaze.d";
+import { App } from "@root/system/global";
 
 class EntityRouter {
 	app: any;
@@ -170,7 +171,7 @@ export const makeRouter = (entry: string, config: any, dev: boolean = false) => 
 
 		const callComponent = (request) => {
 			current = new EntityRender(request, {
-				arg: [Object.assign(app, { params }), window.$app[keyApplication]],
+				arg: [Object.assign(app, { params }), App.get(keyApplication, 'app')],
 				key: keyApplication,
 			});
 		};
@@ -315,10 +316,10 @@ export const makeRouter = (entry: string, config: any, dev: boolean = false) => 
 		keyApplication = keyApp;
 
 		/**
-		 * @everyMakeElement
+		 * @onMakeElement
 		 * on a element and dataset link is router link
 		 */
-		blaze.everyMakeElement.push((el: any) => {
+		blaze.onMakeElement.push((el: any) => {
 			if (el && el.nodeName === "A" && el.dataset.link && el.href !== "#" && !el.$router) {
 				if (config.resolve) {
 					let url = new URL(el.href);
@@ -338,10 +339,10 @@ export const makeRouter = (entry: string, config: any, dev: boolean = false) => 
 		});
 
 		/**
-		 * @everyMakeComponent
+		 * @onMakeComponent
 		 * inject router to always component
 		 */
-		blaze.everyMakeComponent.push((component) => {
+		blaze.onMakeComponent.push((component) => {
 			component.$router = tool;
 		});
 
@@ -353,7 +354,7 @@ export const makeRouter = (entry: string, config: any, dev: boolean = false) => 
 			updateComponent.forEach((newComponent) => {
 				let component = app.$router.history.at(0).current;
 				let loader = app.$router.loader;
-				let createApp = window.$createApp[keyApp];
+				let createApp = App.get(keyApp);
 				if (createApp.isComponent(newComponent)) {
 					if (newComponent.name === component.constructor.name) {
 						createApp.componentProcess({ component, newComponent, key: 0 });
