@@ -13,6 +13,7 @@
 -   Navigation, Cache Request, Error Handling And More
 -   Auto Dependencies
 -   Uses few third-party packages
+-   Reactive Effect
 
 ## Installation
 
@@ -31,8 +32,8 @@ import { createApp } from "@root/render";
 import withError from "@root/plugin/error";
 
 export default function Apps() {
-	const { render } = init(this);
-	render(() => <p>Hello World</p>);
+    const { render } = init(this);
+    render(() => <p>Hello World</p>);
 }
 ```
 
@@ -43,7 +44,7 @@ import { createApp } from "@root/render";
 import withError from "@root/plugin/error";
 
 const app = new createApp("#app", MyApp, {
-	dev: false,
+    dev: false,
 });
 app.use(withError());
 app.mount();

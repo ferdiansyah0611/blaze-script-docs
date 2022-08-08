@@ -70,6 +70,16 @@ export class createApp implements InterfaceApp {
 				});
 				return;
 			}
+			if(typeof component[name] === 'object') {
+				if(component[name]._isProxy) {
+					let check = isEqualWith(component[name], newComponent[name])
+					if(!check) {
+						Object.assign(component[name], newComponent[name])
+						return;
+					}
+					console.log(check);
+				}
+			}
 			newComponent[name] = component[name];
 		});
 		return newComponent;

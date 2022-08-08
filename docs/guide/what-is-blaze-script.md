@@ -13,6 +13,7 @@
 -   Navigation, Cache Request, Error Handling And More
 -   Auto Dependencies
 -   Uses few third-party packages
+-   Reactive Effect
 
 ## Installation
 

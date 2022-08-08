@@ -13,7 +13,6 @@ export default function Document(Index, Container) {
                 app,
 
                 EntityRouter,
-                popstate,
                 tool
             } = action;
 
@@ -27,7 +26,7 @@ export default function Document(Index, Container) {
                 index
                     .before(() => {
                         entity.removePrevious();
-                        entity.handling(urlRequest, popstate);
+                        entity.handling(urlRequest);
                     })
                     .start()
                     .compile({
@@ -38,7 +37,7 @@ export default function Document(Index, Container) {
                     .mount(app.$router.hmr)
                     .saveToExtension()
                     .done(function () {
-                        entity.add(urlRequest, this.component);
+                        entity.add(this.component);
                         EntityRouter.change(app, urlRequest);
                     });
                 return;
@@ -86,7 +85,7 @@ export default function Document(Index, Container) {
                     .before(() => {
                         entity.beforeEach(result.config);
                         entity.removePrevious();
-                        entity.handling(urlRequest, popstate);
+                        entity.handling(urlRequest);
                     })
                     .start()
                     .compile({
@@ -98,7 +97,7 @@ export default function Document(Index, Container) {
                     .saveToExtension()
                     .done(function () {
                         entity.afterEach(result.config);
-                        entity.add(urlRequest, this.component);
+                        entity.add(this.component);
                         EntityRouter.change(app, urlRequest);
                     });
             }

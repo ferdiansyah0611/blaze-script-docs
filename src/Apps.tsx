@@ -23,7 +23,7 @@ export default function MyApp() {
 			this.state.open = location.pathname === "/";
 		});
 
-		this.$router.onChange((data) => {
+		this.$router.watch((data) => {
 			batch(() => {
 				dispatch("app.active", data);
 				this.state.open = data === "/";
@@ -36,7 +36,7 @@ export default function MyApp() {
 	render(() => (
 		<div className="app">
 			{!this.state.open && <Sidebar />}
-			<div class={!this.state.open ? "close" : ""} id="container">
+			<div class={!this.state.open ? "close" : "open"} id="container">
 				<Navbar open={!this.state.open} />
 				<div d skip id="route"></div>
 				<Paginator open={!this.state.open} />
