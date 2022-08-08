@@ -1,7 +1,7 @@
 import { EntityRender } from "@root/system/core";
 import { mount } from "@blaze";
 import { Component } from "@root/blaze.d";
-import { App } from "@root/system/global";
+import { App, Router } from "@root/system/global";
 
 class EntityRouter {
 	app: any;
@@ -309,10 +309,10 @@ export const makeRouter = (entry: string, config: any, dev: boolean = false) => 
 			},
 		};
 		app.$router = tool;
-		if (!window.$router) {
-			window.$router = [];
+		let current = Router.get(keyApp)
+		if (!current) {
+			Router.set(tool)
 		}
-		window.$router[keyApp] = tool;
 		keyApplication = keyApp;
 
 		/**
@@ -421,17 +421,18 @@ export const startIn = (component: Component, keyApp?: number, loader?: Function
 	}
 
 	mount(() => {
-		window.$router[keyApp].loader = loader;
+		let router = component.$router
+		router.loader = loader;
 
-		if (!window.$router[keyApp].hmr) {
-			window.$router[keyApp].ready(component);
+		if (!router.hmr) {
+			router.ready(component);
 			window.addEventListener("popstate", () => {
-				window.$router[keyApp].popstate = true;
-				window.$router[keyApp].ready(component, location);
+				router.popstate = true;
+				router.ready(component, location);
 			});
 		} else {
-			window.$router[keyApp].popstate = true;
-			window.$router[keyApp].ready(component, location);
+			router.popstate = true;
+			router.ready(component, location);
 		}
 	}, component);
 };

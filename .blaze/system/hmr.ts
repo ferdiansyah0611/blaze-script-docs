@@ -13,8 +13,8 @@ if (import.meta.hot) {
       Object.keys(modules).forEach((mod) => {
         hmr.push(modules[mod]);
       })
-      window.app.forEach((app) => {
-        app.reload(hmr, true)
+      window.app.forEach((apps) => {
+        apps.reload(hmr, true)
       })
     })
 }
@@ -61,8 +61,8 @@ if (import.meta.hot) {
         Object.keys(modules).forEach((mod) => {
           hmr.push(modules[mod]);
         })
-        window.app.forEach((app) => {
-          app.reload(hmr)
+        window.app.forEach((apps) => {
+          apps.reload(hmr)
         })
     });
 }`

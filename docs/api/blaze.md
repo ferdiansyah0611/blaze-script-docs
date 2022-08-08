@@ -5,42 +5,26 @@ const keyApp = 0;
 const blaze = window.$app[keyApp];
 ```
 
-## everyMakeElement
+## onMakeElement
 
 ```tsx
-blaze.everyMakeElement.push((el) => {
+blaze.onMakeElement.push((el) => {
 	console.log(el);
 });
 ```
 
-## everyMakeComponent
+## onMakeComponent
 
 ```tsx
-blaze.everyMakeComponent.push((component) => {
+blaze.onMakeComponent.push((component) => {
 	console.log(component);
 });
 ```
 
-## afterAppReady
+## onAfterAppReady
 
 ```tsx
-blaze.afterAppReady.push((component) => {
-	console.log(component);
-});
-```
-
-## startComponent
-
-```tsx
-blaze.startComponent.push((el) => {
-	console.log(el);
-});
-```
-
-## endComponent
-
-```tsx
-blaze.endComponent.push((component) => {
+blaze.onAfterAppReady.push((component) => {
 	console.log(component);
 });
 ```
@@ -49,6 +33,22 @@ blaze.endComponent.push((component) => {
 
 ```tsx
 blaze.onReload.push((component) => {
+	console.log(el);
+});
+```
+
+## onStartComponent
+
+```tsx
+blaze.onStartComponent.push((component) => {
+	console.log(component);
+});
+```
+
+## onEndComponent
+
+```tsx
+blaze.onEndComponent.push((component) => {
 	console.log(component);
 });
 ```

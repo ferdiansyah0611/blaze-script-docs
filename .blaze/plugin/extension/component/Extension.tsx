@@ -2,9 +2,9 @@ import { init, batch } from "@blaze";
 import InputExtension from "./InputExtension";
 import ListExtension from "./ListExtension";
 import Testing from "./Testing";
-import { App } from "@root/system/global";
+import { App, Router } from "@root/system/global";
 
-const exception = ["$name", "$children", "$root", "$index", "_isProxy", "fallback"];
+const exception = ["$name", "$children", "$root", "$index", "_isProxy", "fallback", 'h', 'Fragment', '_isContext'];
 
 export default function Extension(keyApp) {
 	const { render, state, mount, computed } = init(this);
@@ -29,8 +29,9 @@ export default function Extension(keyApp) {
 	mount(() => {
 		// inject to window
 		window.$extension = this;
-		if (window.$router)
-			window.$router[keyApp].onChange(() => {
+		let router = Router.get(keyApp);
+		if (router)
+			router.onChange(() => {
 				batch(() => {
 					this.clearLog();
 					this.state.selectComponent = {
@@ -177,7 +178,7 @@ export default function Extension(keyApp) {
 												<div class="flex flex-col border-b border-gray-500 pb-2">
 													{this.selectComponentState.map((item) => (
 														<div>
-															{item !== "$node" &&
+															{!['$node', '$router', '$config'].includes(item) &&
 																Object.keys(this.state.selectComponent[item] || {})
 																	.filter((item) => exception.includes(item) === false)
 																	.map((state, i) => (
@@ -317,9 +318,7 @@ const computedExtension = (computed, keyApp) => {
 				reload: () => {
 					batch(() => {
 						this.clearLog();
-						this.state.selectComponent = {
-							$deep: {},
-						};
+						this.state.selectComponent = null;
 						this.state.component = [];
 						this.state.runTest = false;
 					}, this);
@@ -336,7 +335,12 @@ const computedExtension = (computed, keyApp) => {
 					else {
 						this.$node.className = closeClass;
 					}
-					this.state.open = !this.state.open;
+					batch(() => {
+						this.state.openConsole = false;
+						this.state.openLog = false;
+						this.state.openComponent = false;
+						this.state.open = !this.state.open;
+					}, this)
 
 					this.resizeBody();
 				},
@@ -413,10 +417,11 @@ const computedExtension = (computed, keyApp) => {
 				},
 			},
 			get: {
-				selectComponentState: () =>
-					Object.keys(this.state.selectComponent || {}).filter(
-						(item) => this.state.selectComponent[item]?._isProxy === true && item !== "props"
-					),
+				selectComponentState: () => {
+					return Object.keys(this.state.selectComponent || {}).filter(
+						(item) => this.state.selectComponent[item]?._isProxy === true && item !== "props" && item !== "$deep"
+					)
+				},
 				selectComponentContext: () => Object.keys(this.state.selectComponent.ctx || {}),
 				props: () =>
 					Object.keys(this.state.selectComponent.props || {}).filter((item) => exception.includes(item) === false),

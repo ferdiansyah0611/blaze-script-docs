@@ -123,7 +123,7 @@ export class createApp implements InterfaceApp {
 			return sub;
 		};
 		this.app.$deep.registry = this.app.$deep.registry.map((data) => checkComponent(data));
-		this.blaze._onReload(hmrArray);
+		this.blaze.run.onReload(hmrArray);
 		HMR.clear();
 	}
 	mount() {

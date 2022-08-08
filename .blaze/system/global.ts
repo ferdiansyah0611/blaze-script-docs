@@ -1,6 +1,7 @@
 let store = {};
 let app = [];
 let hmr = [];
+let router = [];
 
 if (import.meta.env.DEV) {
 	window.store = store;
@@ -27,6 +28,18 @@ export const App = {
 	},
 	set(value) {
 		app.push(value);
+	},
+};
+
+export const Router = {
+	get(id?: number) {
+		if (id >= 0) {
+			return router[id];
+		}
+		return router;
+	},
+	set(value) {
+		router.push(value);
 	},
 };
 
