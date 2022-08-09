@@ -61,14 +61,18 @@ $sidebar: 280px
 		@apply p-4 md:p-10
 		h1
 			@apply text-xl
-		h1, h2, h3, h4, h5
+		h1, h2
 			@apply font-bold mb-4
+		h3, h4, h5
+			@apply font-medium mb-2
 		h1, h2
 			@apply border-b border-gray-500 pb-2
 		p, code, ul
 			@apply mb-4
 		code
 			@apply text-sm
+			@media (max-width: theme('screens.sm'))
+				@apply text-xs
 		li
 			list-style: inside
 		a

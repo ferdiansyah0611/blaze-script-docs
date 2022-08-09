@@ -27,9 +27,7 @@ By default, typescript is not installed in node_modules and we use tsc globally.
 
 ```tsx
 // Apps.tsx
-import App, { init } from "@blaze";
-import { createApp } from "@root/render";
-import withError from "@root/plugin/error";
+import { init } from "@blaze";
 
 export default function Apps() {
     const { render } = init(this);

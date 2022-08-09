@@ -3,10 +3,10 @@ import { batch } from "./utils";
 import { Component } from "../blaze.d";
 
 /**
- * @childrenObserve
+ * @makeChildren
  * manage children element, like appendChild a node/string/number
  */
-export const childrenObserve = (children: HTMLElement[], el: HTMLElement) => {
+export const makeChildren = (children: HTMLElement[], el: HTMLElement) => {
 	if (children.length === 1 && typeof children[0] === "string") {
 		el.append(document.createTextNode(children[0]));
 	} else if (children.length) {
@@ -46,10 +46,10 @@ export const childrenObserve = (children: HTMLElement[], el: HTMLElement) => {
 };
 
 /**
- * @attributeObserve
+ * @makeAttribute
  * manage attribute element, like dataset, event, etc
  */
-export const attributeObserve = (data: any, el: HTMLElement, component: Component) => {
+export const makeAttribute = (data: any, el: HTMLElement, component: Component) => {
 	Object.keys(data).forEach((item: any) => {
 		if (item === "model") {
 			let path = data[item];

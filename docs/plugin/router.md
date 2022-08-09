@@ -128,17 +128,33 @@ const TestParam = function (app) {
 ## Listener Route
 
 ```tsx
-this.$router.onChange(data => {
+this.$router.watch(data => {
     console.log('url :', data)
 })
 ```
 
-## Method
+## API
+
+### $router.go(go: number)
 
 ```tsx
-const history = this.$router.history;
+this.$router.go(-2)
+```
 
-history.push("/home");
-history.back();
-history.go(-2);
+### $router.push(url: string)
+
+```tsx
+this.$router.push('/home')
+```
+
+### $router.back()
+
+```tsx
+this.$router.back()
+```
+
+### $router.watch((url: string) => any)
+
+```tsx
+this.$router.watch((url) => console.log(url))
 ```
