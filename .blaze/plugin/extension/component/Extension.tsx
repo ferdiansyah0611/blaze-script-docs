@@ -206,7 +206,7 @@ export default function Extension(keyApp) {
 										{this.selectComponentContext.length ? (
 											<div>
 												<div class="flex flex-col border-b border-gray-500 pb-2">
-													{this.selectComponentContext.map((item, key) => (
+													{this.selectComponentContext.map((item) => (
 														<div>
 															<h5 class="text-gray-200 p-2 ml-2">
 																{item} - Context
