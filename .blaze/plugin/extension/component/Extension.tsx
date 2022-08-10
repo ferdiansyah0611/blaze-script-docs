@@ -7,7 +7,7 @@ import { App, Router } from "@root/system/global";
 const exception = ["$name", "$children", "$root", "$index", "_isProxy", "fallback", 'h', 'Fragment', '_isContext'];
 
 export default function Extension(keyApp) {
-	const { render, state, mount, computed } = init(this);
+	const { render, state, mount, computed, created } = init(this);
 	state("state", {
 		console: [],
 		log: [],
@@ -26,12 +26,18 @@ export default function Extension(keyApp) {
 			$deep: {},
 		},
 	});
+	created(() => {
+		let value = localStorage.getItem('extension')
+		if(value && value === "true") {
+			this.state.open = true;
+		}
+	})
 	mount(() => {
 		// inject to window
 		window.$extension = this;
 		let router = Router.get(keyApp);
 		if (router)
-			router.onChange(() => {
+			router.watch(() => {
 				batch(() => {
 					this.clearLog();
 					this.state.selectComponent = {
@@ -199,15 +205,14 @@ export default function Extension(keyApp) {
 										)}
 										{this.selectComponentContext.length ? (
 											<div>
-												<h6 class="ml-2 font-medium p-2">Context</h6>
 												<div class="flex flex-col border-b border-gray-500 pb-2">
 													{this.selectComponentContext.map((item, key) => (
 														<div>
 															<h5 class="text-gray-200 p-2 ml-2">
-																{key + 1}. {item}
+																{item} - Context
 															</h5>
 															{Object.keys(this.state.selectComponent["ctx"][item] || {})
-																.filter((items) => items !== "_isContext")
+																.filter((items) => items !== "_isContext" && items !== '_isProxy')
 																.map((state, i) => (
 																	<InputExtension
 																		name={state}
@@ -229,7 +234,7 @@ export default function Extension(keyApp) {
 											describe={this.state.selectComponent?.$deep?.test?.result || []}
 										/>
 										<div d className="mt-2">
-											{this.state.selectComponent.constructor.name !== "Object" ? (
+											{this.state.selectComponent.$node ? (
 												<div>
 													<div d class="ml-2">
 														<h5 d class="p-2 flex-1 font-bold">
@@ -340,15 +345,16 @@ const computedExtension = (computed, keyApp) => {
 						this.state.openLog = false;
 						this.state.openComponent = false;
 						this.state.open = !this.state.open;
+						localStorage.setItem('extension', this.state.open)
+						this.resizeBody(this.state.open);
 					}, this)
 
-					this.resizeBody();
 				},
-				resizeBody: () => {
+				resizeBody: (isTrue) => {
 					setTimeout(() => {
 						let node = App.get(keyApp, 'app')
 						if (node.$node) {
-							node.$node.style.marginBottom = `${this.$node.offsetHeight}px`;
+							node.$node.style.marginBottom = `${!isTrue ? 0 : this.$node.offsetHeight}px`;
 						}
 					}, 1000);
 				},
@@ -422,7 +428,7 @@ const computedExtension = (computed, keyApp) => {
 						(item) => this.state.selectComponent[item]?._isProxy === true && item !== "props" && item !== "$deep"
 					)
 				},
-				selectComponentContext: () => Object.keys(this.state.selectComponent.ctx || {}),
+				selectComponentContext: () => Object.keys(this.state.selectComponent.ctx || {}).filter(item => item !== '_isProxy'),
 				props: () =>
 					Object.keys(this.state.selectComponent.props || {}).filter((item) => exception.includes(item) === false),
 			},

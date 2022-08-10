@@ -1,5 +1,6 @@
 .index
 	@apply w-full
+	@apply p-4 md:p-10
 	h1, h2, h3, h4, h5
 		@apply border-b-0 #{!important}
 
@@ -42,4 +43,6 @@
 					@apply text-gray-300
 
 	.example
-		@apply mt-4
+		@apply mt-4 flex gap-4 overflow-auto pb-4
+		code
+			@apply text-xs #{!important}

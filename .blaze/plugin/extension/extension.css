@@ -2,7 +2,7 @@
 	position: fixed;
 	bottom: 0px;
 	z-index: 10;
-	background: #1a1a1a;
+	background: black;
 	left: 0px;
 	width: 100%;
 	font-family: system-ui;
@@ -41,6 +41,7 @@
 #extension textarea {
 	padding: 20px;
 	outline: none;
+	background: #1a1a1a !important;
 }
 #extension textarea {
 	width: 100%;
@@ -93,7 +94,7 @@
 }
 
 #extension .border-b {
-	border-bottom: 1px solid white;
+	border-bottom: 1px solid #7c7c7c;
 }
 
 #extension .text-gray-100 {

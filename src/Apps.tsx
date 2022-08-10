@@ -4,8 +4,6 @@ import { startIn } from "@root/plugin/router";
 import "@style/template.sass";
 import Sidebar from "@component/Sidebar";
 import Navbar from "@component/Navbar";
-import Footer from "@component/Footer";
-import Paginator from "@component/Paginator";
 import Loader from "@component/Loader";
 
 import apps from "@store/app";
@@ -39,8 +37,6 @@ export default function MyApp() {
 			<div class={!this.state.open ? "close" : "open"} id="container">
 				<Navbar open={!this.state.open} />
 				<div d skip id="route"></div>
-				<Paginator open={!this.state.open} />
-				<Footer />
 			</div>
 		</div>
 	));
