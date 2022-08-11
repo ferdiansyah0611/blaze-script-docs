@@ -61,6 +61,7 @@ const App = context(
 				collapsed: true,
 				items: [
 					{ text: "Router", link: "/plugin/router" },
+					{ text: "Form", link: "/plugin/form" },
 					{ text: "Helmet", link: "/plugin/helmet" },
 					{ text: "Extension", link: "/plugin/extension" },
 					{ text: "Local", link: "/plugin/local" },
