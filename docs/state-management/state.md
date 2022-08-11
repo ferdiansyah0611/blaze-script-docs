@@ -1,5 +1,7 @@
 # State
 
+This section about state.
+
 ```tsx
 import { init } from "@blaze";
 

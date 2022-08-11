@@ -17,6 +17,8 @@ const World = function() {
 }
 ```
 
+## Unique Component
+
 To call another component with a specific component, you must add a key to make it stored in memory and must be unique. By default, the key will automatically be 0. However, the key can also accept a string for its value.
 
 ```tsx
@@ -42,6 +44,8 @@ const App = function() {
 }
 ```
 
+## Children
+
 To access the child component, as follows
 
 ```tsx
@@ -59,6 +63,8 @@ const App = function() {
 	</div>)
 }
 ```
+
+## Props & defineProp
 
 Use props and access them.
 
@@ -82,6 +88,8 @@ const App = function() {
 	</div>)
 }
 ```
+
+## Information
 
 Don't recommendation if fragment in first render
 

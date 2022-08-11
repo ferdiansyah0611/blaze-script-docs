@@ -111,6 +111,10 @@
 	color: #5cff78;
 }
 
+#extension .text-red-400 {
+	color: #ff5c5c;
+}
+
 #extension .italic {
 	font-style: italic;
 }
@@ -163,4 +167,19 @@
 
 #extension .text-sm {
 	font-size: 14px;
+}
+
+#extension .pl-4 {
+	padding-left: 12px;
+}
+
+#extension .ml-4 {
+	margin-left: 12px;
+}
+
+#extension .rounded-full.w-3.h-3.bg-white {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: white;
 }

@@ -13,13 +13,29 @@ const Hello = function () {
     render(
         () => (
             <div>
-                <button onClick={click}>Click Me</button>
-                <input onChangeValue={(value) => console.log(value)} type="text" />
-                <a href="/" onClickPrevent={click}>
-                    Click Me
-                </a>
+                <button batch={false} onClick={click}>Click Me</button>
             </div>
         )
     );
 };
+```
+
+## on[Event]Prevent
+
+Event listener auto preventDefault
+
+```tsx
+<div>
+    <a href="/" onClickPrevent={() => console.log('click')}>Click</a>
+</div>
+```
+
+## on[Event]Value
+
+Event listener get value attribute
+
+```tsx
+<div>
+    <input onChangeValue={(value) => console.log(value)} type="text" />
+</div>
 ```

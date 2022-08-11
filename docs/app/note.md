@@ -60,15 +60,21 @@ export default function Index() {
 	};
 	render(
 		() => (
-			<div d class="index">
-				<form d onSubmitPrevent={submit}>
-					<div d>
+			<div diff class="index">
+				<form diff onSubmitPrevent={submit}>
+					<div diff>
 						<input placeholder="Title" model="state.input.title" type="text"/>
 					</div>
-					<div d>
-						<textarea placeholder="Description" model="state.input.description" cols="30" rows="10"></textarea>
+					<div diff>
+						<textarea
+							placeholder="Description"
+							model="state.input.description"
+							cols="30"
+							rows="10"
+						>
+						</textarea>
 					</div>
-					<button d type="submit">Submit</button>
+					<button diff type="submit">Submit</button>
 				</form>
 				<div for>
 					{this.state.data.map((item) => (

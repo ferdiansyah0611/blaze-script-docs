@@ -26,5 +26,5 @@ app.use(
         customize: Document(Index, Container)
     })
 );
-app.use(withExtension("#extension", false));
+app.use(withExtension("#extension", import.meta.env.DEV));
 app.mount();

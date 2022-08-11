@@ -24,12 +24,13 @@ Supporting function in init
 import App, { init } from "@blaze";
 
 const App = function () {
-    const { render, mount, layout, state } = init(this);
-    state("mystate", {
+    const { render, mount, layout, state, effect } = init(this);
+    state(null, {
         id: 1,
     });
     mount(() => console.log("mount"));
     layout(() => console.log("layout"));
+    effect(() => console.log("effect", this.state.id));
     render(() => <p>Hello World</p>);
 };
 ```
@@ -44,7 +45,7 @@ import App, { init, render, mount, layout, state } from "@blaze";
 const Hello = function () {
     init(this);
     state(
-        "mystate",
+        null,
         {
             id: 1,
         },
@@ -52,6 +53,7 @@ const Hello = function () {
     );
     mount(() => console.log("mount"), this);
     layout(() => console.log("layout"), this);
+    effect(() => console.log("effect", this.state.id), this);
     render(() => <p>Hello World</p>, this);
 };
 ```

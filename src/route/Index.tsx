@@ -50,7 +50,7 @@ export default function Index() {
 		],
 	});
 	render(() => (
-		<div d>
+		<div diff>
 			<div className="index">
 				<section skip class="introduction">
 					<h1>Blaze Script</h1>
@@ -141,8 +141,9 @@ export function List() {
 					</li>
 				))}
 			</ul>
-			<input placeholder="Type Here" className="bg-gray-900 text-white" type="text" model="data.input" />
+			<input live placeholder="Type Here" className="bg-gray-900 text-white" type="text" model="data.input" />
 			<div>
+				<p>Your Input: {this.data.input}</p>
 				<button onClick={submit}>Submit</button>
 			</div>
 		</div>

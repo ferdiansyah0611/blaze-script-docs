@@ -1,5 +1,7 @@
 # Attribute
 
+This section about attribute element.
+
 ## style
 
 Work on string or object
@@ -101,5 +103,19 @@ skip diffing a children
 ```tsx
 <section>
 	<article skip setHTML="<p>hello world</p>"></article>
+</section>
+```
+
+## diff
+
+skip diffing a attribute, don't add this attribute if element interact with state/props/context.
+
+```tsx
+<section>
+	<p diff>hello world</p>
+	<p diff>hello world</p>
+	<p diff>hello world</p>
+	<p diff>hello world</p>
+	<p diff>hello world</p>
 </section>
 ```

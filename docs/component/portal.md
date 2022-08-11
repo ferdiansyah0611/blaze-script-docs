@@ -11,9 +11,7 @@ const portalApp = function () {
     render(() => (
         <div>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae corrupti, blanditiis explicabo in quis
-                tenetur quas magnam autem fugit corporis atque praesentium deserunt harum minus iste, reprehenderit,
-                dolores commodi! A.
+                Lorem ipsum dolor sit amet
             </p>
         </div>
     ));
@@ -24,9 +22,7 @@ const MyApp = function () {
     render(() => (
         <div>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae corrupti, blanditiis explicabo in quis
-                tenetur quas magnam autem fugit corporis atque praesentium deserunt harum minus iste, reprehenderit,
-                dolores commodi! A.
+                Lorem ipsum dolor sit amet
             </p>
             <portalApp />
             <portalApp key={2} />

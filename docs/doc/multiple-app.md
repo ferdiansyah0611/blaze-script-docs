@@ -26,10 +26,10 @@ const app = new createApp("#app", Hello, {
     dev: import.meta.env.DEV,
     key: 0,
 });
-const app2 = new createApp("#app-2", Hello, {
+const about = new createApp("#about", Hello, {
     dev: import.meta.env.DEV,
     key: 1,
 });
 app.mount();
-app2.mount();
+about.mount();
 ```
