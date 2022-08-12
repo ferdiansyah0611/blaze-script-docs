@@ -67,7 +67,7 @@ export class createApp implements InterfaceApp {
 			}
 			return newComponent;
 		} catch (err) {
-			error.open(newHmr.constructor.name, err.stack);
+			error.open(newComponent.constructor.name, err.stack);
 		}
 	}
 	componentUpdate(component, newComponent) {
