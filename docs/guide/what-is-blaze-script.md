@@ -10,7 +10,7 @@
 -   Lifecycle
 -   JSX Syntax
 -   Batch
--   Navigation, Cache Request, Error Handling And More
+-   Navigation, Cache Request, Form Validation And More
 -   Auto Dependencies
 -   Uses few third-party packages
 -   Reactive Effect

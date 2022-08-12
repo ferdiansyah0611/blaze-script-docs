@@ -9,7 +9,6 @@ import MyApp from "@/Apps";
 import "./style/app.sass";
 import { createApp } from "@root/render";
 import { makeRouter } from "@root/plugin/router";
-import withError from "@root/plugin/error";
 
 import Container from "@component/Container";
 import Document from "./lib/Document";
@@ -19,7 +18,6 @@ import { withExtension } from "@root/plugin/extension";
 const app = new createApp("#app", MyApp, {
     dev: false,
 });
-app.use(withError());
 app.use(
     makeRouter("#route", {
         auto: true,

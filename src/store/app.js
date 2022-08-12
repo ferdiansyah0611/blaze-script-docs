@@ -9,6 +9,7 @@ const App = context(
 				items: [
 					{ text: "Home", link: "/" },
 					{ text: "What is blaze script", link: "/guide/what-is-blaze-script" },
+					{ text: "Tips", link: "/guide/tips" },
 				],
 			},
 			{
