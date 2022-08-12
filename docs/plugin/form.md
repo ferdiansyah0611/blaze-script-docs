@@ -81,6 +81,10 @@ List of validator
 			<td>boolean</td>
 		</tr>
 		<tr>
+			<td>isPhoneNumber</td>
+			<td>boolean</td>
+		</tr>
+		<tr>
 			<td>message</td>
 			<td>string</td>
 		</tr>
