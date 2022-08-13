@@ -62,6 +62,7 @@ export class createApp implements InterfaceApp {
 			now.created();
 			now.mount({}, false, true);
 			now.watch();
+			now.effect(true);
 			if (error.state.data.title) {
 				error.close();
 			}
@@ -95,11 +96,14 @@ export class createApp implements InterfaceApp {
 				return;
 			}
 			if (typeof component[name] === "object") {
+				if (name === 'props') {
+					newComponent[name] = component[name];
+					return;
+				}
 				if (component[name]._isProxy) {
 					let check = isEqualWith(component[name], newComponent[name]);
 					if (!check) {
 						Object.assign(component[name], newComponent[name]);
-						return;
 					}
 				}
 			}

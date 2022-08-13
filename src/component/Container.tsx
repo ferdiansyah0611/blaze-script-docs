@@ -27,18 +27,16 @@ export default function Container() {
         helmet({ title });
 
         batch(() => {
-            this.$node.querySelectorAll("h1").forEach((data) => {
-                this.state.list.push({
-                    id: "#" + data.id,
-                    text: data.innerText
-                });
-            });
-            this.$node.querySelectorAll("h2").forEach((data) => {
-                this.state.list.push({
-                    id: "#" + data.id,
-                    text: data.innerText
-                });
-            });
+            Array.from(this.$node.querySelector('.body').children).forEach((node) => {
+                let type = node.tagName.toLowerCase()
+                if(['h1', 'h2', 'h3', 'h4', 'h5'].includes(type)){
+                    this.state.list.push({
+                        id: "#" + node.id,
+                        text: node.innerText,
+                        type
+                    });
+                }
+            })
         });
     });
     render(() => (
@@ -51,7 +49,7 @@ export default function Container() {
             <div>
                 <div class="list">
                     {this.state.list.map((head) => (
-                        <a href={head.id}>{head.text}</a>
+                        <a class={head.type} href={head.id}>{head.text}</a>
                     ))}
                 </div>
             </div>
