@@ -127,7 +127,7 @@ export function List() {
 		input: "",
 	});
 	const submit = () => {
-		this.data.list.push(this.data.input);
+		this.data.list = [...this.data.list, this.data.input];
 		this.data.input = "";
 	};
 	const remove = (text) => (this.data.list = this.data.list.filter((item) => item !== text));

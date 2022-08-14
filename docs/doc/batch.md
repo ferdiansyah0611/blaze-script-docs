@@ -23,3 +23,17 @@ const Hello = function () {
     ));
 };
 ```
+
+```tsx
+// queue is [id, name]
+batch(() => {
+    this.state.id = 1;
+    this.state.name = 'ferdiansyah';
+})
+// after batch, effect run one time at same effect, and trigger render.
+
+// effect in here with 2 state, queue id and name is same with effect. and run one time not 2x run.
+effect(() => {
+    console.log(this.state.id, this.state.name);
+})
+```
