@@ -52,18 +52,25 @@ export default function Index() {
 	render(() => (
 		<div diff>
 			<div className="index">
-				<section skip class="introduction">
-					<h1>Blaze Script</h1>
-					<h2>Framework Single Page Application</h2>
-					<p>The Future Of Frontend Development</p>
-					<div>
-						<a href="/guide/what-is-blaze-script" data-link>
-							Get Started
-						</a>
-						<a href="https://github.com/ferdiansyah0611/blaze-script">View on GitHub</a>
+				<section class="introduction containers">
+					<div class="flex-1">
+						<h1>Blaze Script</h1>
+						<h2>Framework Single Page Application</h2>
+						<p>Reactivity For Building Modern User Interfaces</p>
+						<div>
+							<a href="/guide/what-is-blaze-script" data-link>
+								Get Started
+							</a>
+							<a href="https://github.com/ferdiansyah0611/blaze-script">View on GitHub</a>
+						</div>
+					</div>
+					<div class="example_code">
+						<div class="text-sm" skip setHTML={this.state.example}></div>
+						<h4>Result</h4>
+						<Result />
 					</div>
 				</section>
-				<section class="features">
+				<section class="features containers">
 					<h3>Features</h3>
 					<div class="list">
 						{this.state.features.map((item, i) => (
@@ -75,7 +82,34 @@ export default function Index() {
 						))}
 					</div>
 				</section>
-				<section class="contributor">
+				<section class="grid md:grid-cols-2 gap-2 containers !py-0">
+					<div class="detail">
+						<h3>Fully Loaded With All Features</h3>
+						<div>
+							<span>Fragments</span>
+							<span>Portal</span>
+							<span>Context</span>
+							<span>Lazy Component</span>
+							<span>Batch</span>
+							<span>Magic Attribute</span>
+						</div>
+					</div>
+					<div class="detail">
+						<h3>Plugin Out Of The Box</h3>
+						<div>
+							<span>Router (Navigation)</span>
+							<span>Query (Request Cache)</span>
+							<span>Form (Validation)</span>
+							<span>Helmet (Title & Description)</span>
+							<span>Local (localstorage)</span>
+							<span>Tester (Testing)</span>
+							<span>Media Query</span>
+							<span>Extension (DevTools)</span>
+							<span>Error Handling</span>
+						</div>
+					</div>
+				</section>
+				<section class="contributor containers">
 					<h3>Contributor</h3>
 					<div className="list">
 						{this.state.members.map((item) => (
@@ -85,18 +119,6 @@ export default function Index() {
 								<p>{item.title}</p>
 							</div>
 						))}
-					</div>
-				</section>
-				<section class="example">
-					<div class="flex-1">
-						<div skip setHTML={this.state.example}></div>
-						<h3>Result</h3>
-						<Result />
-					</div>
-					<div class="flex-1">
-						<div skip setHTML={this.state.exampleList}></div>
-						<h3>Result</h3>
-						<List />
 					</div>
 				</section>
 			</div>
@@ -141,7 +163,7 @@ export function List() {
 					</li>
 				))}
 			</ul>
-			<input live placeholder="Type Here" className="bg-gray-900 text-white" type="text" model="data.input" />
+			<input live placeholder="Type Here" className="bg-black text-white p-2 border border-gray-500 focus:outline-none" type="text" model="data.input" />
 			<div>
 				<p>Your Input: {this.data.input}</p>
 				<button onClick={submit}>Submit</button>

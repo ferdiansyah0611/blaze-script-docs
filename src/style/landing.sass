@@ -1,19 +1,35 @@
+$primary: #4a4a4a
+$heightNavbar: 41px
+
+.containers
+	@apply p-4 md:p-10
 .index
 	@apply w-full
-	@apply p-4 md:p-10
 	h1, h2, h3, h4, h5
 		@apply border-b-0 #{!important}
 
+	h3
+		@apply text-xl
+
 	.introduction
+		@apply flex items-center flex-col md:flex-row gap-4
+		min-height: calc(100vh - $heightNavbar)
+		background: #363636
 		h1
 			@apply text-purple-500 text-4xl mb-0 #{!important}
 		h2
 			@apply text-3xl mb-1 #{!important}
 		p
 			@apply font-medium
+		code
+			@apply text-xs #{!important}
 		h1, h2
 			@apply font-bold
-		> div
+		.example_code
+			@apply w-full flex-1 md:w-auto md:flex-initial
+			pre
+				@apply w-full
+		> div > div
 			@apply flex gap-2
 			a
 				@apply text-white p-2 font-medium #{!important}
@@ -23,20 +39,21 @@
 			a:nth-child(2)
 				@apply bg-black
 	.features
-		@apply mt-4
+		@apply mt-4 mb-8
 		.list
 			@apply grid sm:grid-cols-3 gap-8
 			> div
 				@apply bg-gray-800 p-2 text-center
-				box-shadow: 11px 18px 0px 0px #792392
+				box-shadow: 6px 6px 0px 0px #792392
 				border: 1px solid #792391
 
 	.contributor
-		@apply mt-8
+		@apply mt-8 pb-4
 		.list
 			@apply grid sm:grid-cols-4 gap-2
 			> div
-				@apply bg-gray-800 p-2 text-center border border-gray-700 flex flex-col items-center
+				@apply p-2 text-center border border-gray-700 flex flex-col items-center
+				background: $primary
 				img
 					@apply rounded-full w-40 h-40
 				h5
@@ -45,6 +62,19 @@
 					@apply text-gray-300
 
 	.example
-		@apply mt-4 flex gap-4 overflow-auto pb-4
+		@apply mt-4 overflow-auto pb-4
 		code
 			@apply text-xs #{!important}
+
+
+	.detail
+		@apply mt-4 rounded-xl p-2
+		background: #363636
+		> div
+			@apply grid grid-cols-2 lg:grid-cols-3 gap-2
+			> span
+				@apply p-2 rounded-xl text-center text-sm text-white hover:border-x-4 border-purple-700 #{!important}
+				background: $primary
+				text-decoration: unset !important
+				transition: 0.5s all
+				cursor: pointer
