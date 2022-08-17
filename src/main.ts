@@ -21,7 +21,12 @@ const app = new createApp("#app", MyApp, {
 app.use(
     makeRouter("#route", {
         auto: true,
-        customize: Document(Index, Container)
+        customize: Document(Index, Container),
+        config: {
+            "/plugin": {
+                children: true
+            }
+        }
     })
 );
 app.use(withExtension("#extension", false));

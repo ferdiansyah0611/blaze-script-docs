@@ -53,7 +53,7 @@ export default function Index() {
 		<div diff>
 			<div className="index">
 				<section class="introduction containers">
-					<div class="flex-1">
+					<div class="description">
 						<h1>Blaze Script</h1>
 						<h2>Framework Single Page Application</h2>
 						<p>Reactivity For Building Modern User Interfaces</p>

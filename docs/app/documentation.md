@@ -81,7 +81,7 @@ export default function Document(Index, Container) {
 
             for (let modules in file) {
                 let path = modules.split("../docs")[1].toLowerCase();
-                if (path.match(".md")) {
+                if (path.match(".md") && !path.startsWith("/_")) {
                     let url = path.split(".md")[0];
                     url = url.replaceAll("[", ":").replaceAll("]", "");
                     if (url.indexOf("index") !== -1) {
