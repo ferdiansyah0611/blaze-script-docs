@@ -71,13 +71,15 @@ $heightNavbar: 41px
 
 
 	.detail
-		@apply mt-4 rounded-xl p-2
+		@apply mt-4 p-4 rounded-xl
 		background: #363636
 		> div
-			@apply grid grid-cols-2 lg:grid-cols-3 gap-2
-			> span
-				@apply p-2 rounded-xl text-center text-sm text-white hover:border-x-4 border-purple-700 #{!important}
-				background: $primary
-				text-decoration: unset !important
-				transition: 0.5s all
-				cursor: pointer
+			@apply mt-2
+			> div
+				@apply grid grid-cols-2 lg:grid-cols-3 gap-2
+				> span
+					@apply p-2 rounded-xl text-center text-sm text-white hover:border-x-4 border-purple-700 #{!important}
+					background: $primary
+					text-decoration: unset !important
+					transition: 0.5s all
+					cursor: pointer

@@ -19,6 +19,8 @@
 
 ```bash
 git clone git@github.com:ferdiansyah0611/blaze-script.git myapp && cd myapp && npm i
+# or
+git clone git@github.com:ferdiansyah0611/blaze-script.git -b dev myapp && cd myapp && npm i
 ```
 
 By default, typescript is not installed in node_modules and we use tsc globally. if you haven't installed typescript on your device, you can install it using `npm i typescript`

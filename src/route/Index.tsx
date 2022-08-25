@@ -82,30 +82,32 @@ export default function Index() {
 						))}
 					</div>
 				</section>
-				<section class="grid md:grid-cols-2 gap-2 containers !py-0">
+				<section class="containers !py-0 flex justify-center">
 					<div class="detail">
-						<h3>Fully Loaded With All Features</h3>
 						<div>
-							<span>Fragments</span>
-							<span>Portal</span>
-							<span>Context</span>
-							<span>Lazy Component</span>
-							<span>Batch</span>
-							<span>Magic Attribute</span>
+							<h3>Fully Loaded With All Features</h3>
+							<div>
+								<span>Fragments</span>
+								<span>Portal</span>
+								<span>Context</span>
+								<span>Lazy Component</span>
+								<span>Batch</span>
+								<span>Magic Attribute</span>
+							</div>
 						</div>
-					</div>
-					<div class="detail">
-						<h3>Plugin Out Of The Box</h3>
 						<div>
-							<span>Router (Navigation)</span>
-							<span>Query (Request Cache)</span>
-							<span>Form (Validation)</span>
-							<span>Helmet (Title & Description)</span>
-							<span>Local (localstorage)</span>
-							<span>Tester (Testing)</span>
-							<span>Media Query</span>
-							<span>Extension (DevTools)</span>
-							<span>Error Handling</span>
+							<h3>Plugin Out Of The Box</h3>
+							<div>
+								<span>Router (Navigation)</span>
+								<span>Query (Request Cache)</span>
+								<span>Form (Validation)</span>
+								<span>Helmet (Title & Description)</span>
+								<span>Local (localstorage)</span>
+								<span>Tester (Testing)</span>
+								<span>Media Query</span>
+								<span>Extension (DevTools)</span>
+								<span>Error Handling</span>
+							</div>
 						</div>
 					</div>
 				</section>
@@ -163,7 +165,13 @@ export function List() {
 					</li>
 				))}
 			</ul>
-			<input live placeholder="Type Here" className="bg-black text-white p-2 border border-gray-500 focus:outline-none" type="text" model="data.input" />
+			<input
+				live
+				placeholder="Type Here"
+				className="bg-black text-white p-2 border border-gray-500 focus:outline-none"
+				type="text"
+				model="data.input"
+			/>
 			<div>
 				<p>Your Input: {this.data.input}</p>
 				<button onClick={submit}>Submit</button>
