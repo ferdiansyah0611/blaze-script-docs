@@ -2,7 +2,7 @@ $primary: #4a4a4a
 $heightNavbar: 41px
 
 .containers
-	@apply p-4 md:p-10
+	@apply p-4 md:p-14
 .index
 	@apply w-full
 	h1, h2, h3, h4, h5
@@ -44,7 +44,7 @@ $heightNavbar: 41px
 	.features
 		@apply mt-4 mb-8
 		.list
-			@apply grid sm:grid-cols-3 gap-8
+			@apply grid sm:grid-cols-2 md:grid-cols-3 gap-8
 			> div
 				@apply bg-gray-800 p-2 text-center
 				box-shadow: 6px 6px 0px 0px #792392
@@ -52,17 +52,29 @@ $heightNavbar: 41px
 
 	.contributor
 		@apply mt-8 pb-4
+		h3
+			@apply font-bold text-2xl text-center mb-4 #{!important}
 		.list
-			@apply grid sm:grid-cols-2 md:grid-cols-4 gap-2
+			@apply grid sm:grid-cols-2 md:grid-cols-4 gap-4
 			> div
-				@apply p-2 text-center border border-gray-700 flex flex-col items-center
+				@apply text-center border border-gray-500 flex flex-col items-center rounded-md
 				background: $primary
 				img
-					@apply rounded-full w-40 h-40
+					@apply rounded-full w-40 h-40 p-2
 				h5
 					@apply mb-0 mt-2 #{!important}
 				p
 					@apply text-gray-300
+				> div
+					@apply flex flex-col gap-2 w-full border-t border-gray-500 p-2
+					button
+						@apply flex justify-center gap-2 text-sm
+						span:nth-child(1)
+							font-size: 20px !important
+					.twitter
+						@apply bg-blue-500 p-1 rounded-md focus:ring-4 focus:ring-blue-600
+					.github
+						@apply bg-gray-500 p-1 rounded-md focus:ring-4 focus:ring-gray-600
 
 	.example
 		@apply mt-4 overflow-auto pb-4
@@ -71,15 +83,27 @@ $heightNavbar: 41px
 
 
 	.detail
-		@apply mt-4 p-4 rounded-xl
-		background: #363636
-		> div
-			@apply mt-2
-			> div
-				@apply grid grid-cols-2 lg:grid-cols-3 gap-2
-				> span
-					@apply p-2 rounded-xl text-center text-sm text-white hover:border-x-4 border-purple-700 #{!important}
-					background: $primary
-					text-decoration: unset !important
-					transition: 0.5s all
-					cursor: pointer
+		@apply p-2
+		h3
+			@apply font-bold text-2xl text-center mb-4 #{!important}
+
+		.plugin
+			@apply flex gap-2 flex-wrap items-center justify-center
+			max-width: 500px
+			> span
+				@apply p-2 rounded-xl text-center text-sm text-white #{!important}
+				background: $primary
+				text-decoration: unset !important
+				transition: 0.5s all
+				animation: plugin 1s infinite ease-out
+				cursor: pointer
+				&:hover
+					background: #363636
+
+@keyframes plugin
+	0%
+		margin-left: 0px
+	50%
+		margin-left: 10px
+	100%
+		margin-left: 0px

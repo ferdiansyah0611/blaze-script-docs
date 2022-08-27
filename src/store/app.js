@@ -20,6 +20,7 @@ const App = context(
 					{ text: "Lifecycle", link: "/component/lifecycle" },
 					{ text: "Portal", link: "/component/portal" },
 					{ text: "Lazy", link: "/component/lazy" },
+					{ text: "Transform", link: "/component/transform" },
 				],
 			},
 			{

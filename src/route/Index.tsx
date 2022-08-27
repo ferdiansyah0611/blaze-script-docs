@@ -36,6 +36,24 @@ export default function Index() {
 				title: "Auto Dependencies",
 				details: "With auto dependencies makes the development process faster",
 			},
+			{
+				icon: "🛠️",
+				title: "Reactive",
+				details:
+					"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+			},
+			{
+				icon: "🛠️",
+				title: "Plugin Out Of The Box",
+				details:
+					"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+			},
+			{
+				icon: "🛠️",
+				title: "Small Bundling",
+				details:
+					"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+			},
 		],
 		members: [
 			{
@@ -47,8 +65,38 @@ export default function Index() {
 					{ icon: "twitter", link: "https://twitter.com/ferdiansyah0611" },
 				],
 			},
+			{
+				avatar: "https://www.github.com/ferdiansyah0611.png",
+				name: "Ferdiansyah",
+				title: "Maintancer",
+				links: [
+					{ icon: "github", link: "https://github.com/ferdiansyah0611" },
+					{ icon: "twitter", link: "https://twitter.com/ferdiansyah0611" },
+				],
+			},
+			{
+				avatar: "https://www.github.com/ferdiansyah0611.png",
+				name: "Ferdiansyah",
+				title: "QnA",
+				links: [
+					{ icon: "github", link: "https://github.com/ferdiansyah0611" },
+					{ icon: "twitter", link: "https://twitter.com/ferdiansyah0611" },
+				],
+			},
+			{
+				avatar: "https://www.github.com/ferdiansyah0611.png",
+				name: "Ferdiansyah",
+				title: "Help desk",
+				links: [
+					{ icon: "github", link: "https://github.com/ferdiansyah0611" },
+					{ icon: "twitter", link: "https://twitter.com/ferdiansyah0611" },
+				],
+			},
 		],
 	});
+	const openLinkContribute = (data) => {
+		window.open(data.link)
+	}
 	render(() => (
 		<div diff>
 			<div className="index">
@@ -82,36 +130,23 @@ export default function Index() {
 						))}
 					</div>
 				</section>
-				<section class="containers !py-0 flex justify-center">
+				<section class="containers !py-0 flex justify-center items-center border-t border-gray-500 min-h-screen">
 					<div class="detail">
-						<div>
-							<h3>Fully Loaded With All Features</h3>
-							<div>
-								<span>Fragments</span>
-								<span>Portal</span>
-								<span>Context</span>
-								<span>Lazy Component</span>
-								<span>Batch</span>
-								<span>Magic Attribute</span>
-							</div>
-						</div>
-						<div>
-							<h3>Plugin Out Of The Box</h3>
-							<div>
-								<span>Router (Navigation)</span>
-								<span>Query (Request Cache)</span>
-								<span>Form (Validation)</span>
-								<span>Helmet (Title & Description)</span>
-								<span>Local (localstorage)</span>
-								<span>Tester (Testing)</span>
-								<span>Media Query</span>
-								<span>Extension (DevTools)</span>
-								<span>Error Handling</span>
-							</div>
+						<h3>Plugin Out Of The Box</h3>
+						<div class="plugin">
+							<span>Router (Navigation)</span>
+							<span>Query (Request Cache)</span>
+							<span>Form (Validation)</span>
+							<span>Helmet (Title & Description)</span>
+							<span>Local (localstorage)</span>
+							<span>Tester (Testing)</span>
+							<span>Media Query</span>
+							<span>Extension (DevTools)</span>
+							<span>Error Handling</span>
 						</div>
 					</div>
 				</section>
-				<section class="contributor containers">
+				<section class="contributor containers border-t border-gray-500">
 					<h3>Contributor</h3>
 					<div className="list">
 						{this.state.members.map((item) => (
@@ -119,6 +154,16 @@ export default function Index() {
 								<img src={item.avatar} alt="avatar" />
 								<h5>{item.name}</h5>
 								<p>{item.title}</p>
+								<div>
+									<button onClick={() => openLinkContribute(item.links[1])} class="twitter">
+										<span class="material-symbols-outlined">open_in_new</span>
+										<span>Twitter</span>
+									</button>
+									<button onClick={() => openLinkContribute(item.links[0])} class="github">
+										<span class="material-symbols-outlined">open_in_new</span>
+										<span>Github</span>
+									</button>
+								</div>
 							</div>
 						))}
 					</div>
