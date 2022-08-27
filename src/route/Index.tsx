@@ -22,37 +22,37 @@ export default function Index() {
 		exampleList: "",
 		features: [
 			{
-				icon: "⚡",
+				icon: "bolt",
 				title: "Virtual DOM",
 				details: "Virtual DOM make it run reactively and change when certain circumstances",
 			},
 			{
-				icon: "🖖",
+				icon: "published_with_changes",
 				title: "Complete Lifecycle",
 				details: "Complete lifecycle can make the application complex",
 			},
 			{
-				icon: "🛠️",
+				icon: "auto_mode",
 				title: "Auto Dependencies",
 				details: "With auto dependencies makes the development process faster",
 			},
 			{
-				icon: "🛠️",
+				icon: "filter_vintage",
 				title: "Reactive",
 				details:
-					"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+					"Runs reactively without having to initialize the desired state.",
 			},
 			{
-				icon: "🛠️",
+				icon: "dynamic_feed",
 				title: "Plugin Out Of The Box",
 				details:
-					"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+					"Already have default plugins that are often needed so just plug and use.",
 			},
 			{
-				icon: "🛠️",
+				icon: "local_shipping",
 				title: "Small Bundling",
 				details:
-					"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+					"We focus on using a few packages so that it only takes up a small size.",
 			},
 		],
 		members: [
@@ -123,7 +123,9 @@ export default function Index() {
 					<div class="list">
 						{this.state.features.map((item, i) => (
 							<div>
-								<p>{item.icon}</p>
+								<div>
+									<span class="material-symbols-outlined">{item.icon}</span>
+								</div>
 								<h5>{item.title}</h5>
 								<p>{item.details}</p>
 							</div>
