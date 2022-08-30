@@ -1,14 +1,14 @@
-import { init } from "@blaze";
 import app from "@store/app";
 
 export default function Navbar() {
-	const { render } = init(this);
+	// @ts-ignore
+	const { render, mount, effect } = init(this);
 	app(['openMenu'], this);
 	render(() => (
 		<div id="navbar">
 			<div class="left">
 				{this.props.open ?
-					<a href="/" toggle="ctx.app.openMenu">
+					<a href="/" on:toggle="ctx.app.openMenu">
 						<span class="material-symbols-outlined">menu</span>
 						<span>Menu</span>
 					</a>

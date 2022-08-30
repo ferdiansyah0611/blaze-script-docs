@@ -1,6 +1,5 @@
-import { init } from "@blaze";
-
 export default function Footer() {
+	// @ts-ignore
 	const { render, state } = init(this);
 	state(null, {
 		open: true

@@ -4,7 +4,7 @@ import { App } from "@root/system/global";
 
 export default function Document(Index, Container) {
     return {
-        render: (urlRequest, action) => {
+        render: async (urlRequest, action) => {
             const {
                 check,
                 page,
@@ -34,12 +34,14 @@ export default function Document(Index, Container) {
                         key: 0,
                     })
                     .replaceChildren(entry)
-                    .mount(app.$router.hmr)
+                    .mount(tool.hmr)
                     .saveToExtension()
                     .done(function () {
+                        console.log(this);
                         entity.add(this.component);
-                        EntityRouter.change(app, urlRequest);
+                        EntityRouter.change(urlRequest, tool);
                     });
+
                 return;
             }
 
@@ -47,16 +49,19 @@ export default function Document(Index, Container) {
                 config = {
                     url: [],
                 };
-            Object.assign(file, import.meta.glob("@app/docs/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/**/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/**/**/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/**/**/**/**/*.md", { as: "raw" }));
+
+            file = import.meta.glob([
+                "@app/docs/*.md",
+                "@app/docs/**/*.md",
+                "@app/docs/**/**/*.md",
+                "@app/docs/**/**/**/*.md",
+                "@app/docs/**/**/**/**/*.md",
+                "@app/docs/**/**/**/**/**/*.md",
+                "@app/docs/**/**/**/**/**/**/*.md"
+            ], { as: "raw" });
 
             for (let modules in file) {
-                let path = modules.split("../docs")[1].toLowerCase();
+                let path = modules.split("/docs")[1].toLowerCase();
                 if (path.match(".md") && !path.startsWith("/_")) {
                     let url = path.split(".md")[0];
                     url = url.replaceAll("[", ":").replaceAll("]", "");
@@ -75,7 +80,7 @@ export default function Document(Index, Container) {
             if (result) {
                 const container = new EntityRender(Container, {
                     inject: {
-                        html: Markdown(result.component),
+                        html: Markdown(await result.component()),
                         url: urlRequest,
                     },
                     arg: [App.get(keyApplication, 'app')],
@@ -93,12 +98,12 @@ export default function Document(Index, Container) {
                         key: 0,
                     })
                     .replaceChildren(entry)
-                    .mount(app.$router.hmr)
+                    .mount(tool.hmr)
                     .saveToExtension()
                     .done(function () {
                         entity.afterEach(result.config);
                         entity.add(this.component);
-                        EntityRouter.change(app, urlRequest);
+                        EntityRouter.change(urlRequest, tool);
                     });
             }
         },

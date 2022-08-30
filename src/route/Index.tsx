@@ -1,6 +1,5 @@
 // @ts-nocheck
 import "@style/landing.sass";
-import { init } from "@blaze";
 import Example from "@app/docs/_example.md?raw";
 import ExampleList from "@app/docs/_example_list.md?raw";
 import Markdown from "@/lib/Markdown";

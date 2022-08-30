@@ -1,6 +1,5 @@
-import { init } from "@blaze";
-
 export default function Test(){
+	// @ts-ignore
 	init(this, "auto");
 	// @ts-ignore
 	render(() => <div>

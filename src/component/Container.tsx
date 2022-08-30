@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { init } from "@blaze";
 import helmet from "@root/plugin/helmet";
 
 import Paginator from "@component/Paginator";

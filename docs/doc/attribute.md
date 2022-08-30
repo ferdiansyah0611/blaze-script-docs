@@ -48,7 +48,7 @@ SVG element only work in "svg", "path", "g", "circle", "ellipse", "line". But if
 
 ## if & else
 
-Logical optional
+Logical optional. Not recommendation if children is component because will call a component.
 
 ```tsx
 <section>
@@ -59,31 +59,9 @@ Logical optional
 </section>
 ```
 
-## show
-
-Like a display block or none
-
-```tsx
-<section>
-	<div show={true}>
-		<p>I'm show element</p>
-	</div>
-</section>
-```
-
-## toggle
-
-Event listener reverse for a state or context
-
-```tsx
-<section>
-	<button toggle="state.open">toggle</button>
-</section>
-```
-
 ## refs
 
-Get current node
+Get current node.
 
 ```tsx
 <section>
@@ -91,9 +69,11 @@ Get current node
 	<button refs="mybtn" i={0}>btn 2</button>
 </section>
 
-// Access Refs
-console.log(this.btn);
-console.log(this.mybtn[0]);
+effect(() => {
+	// Access Refs
+	console.log(this.btn);
+	console.log(this.mybtn[0]);
+})
 ```
 
 ## skip
@@ -117,5 +97,37 @@ skip diffing a attribute, don't add this attribute if element interact with stat
 	<p diff>hello world</p>
 	<p diff>hello world</p>
 	<p diff>hello world</p>
+</section>
+```
+
+## on:show
+
+Like a display block or none
+
+```tsx
+<section>
+	<div on:show={true}>
+		<p>I'm show element</p>
+	</div>
+</section>
+```
+
+## on:toggle
+
+Event listener reverse for a state or context
+
+```tsx
+<section>
+	<button on:toggle="state.open">toggle</button>
+</section>
+```
+
+## on:active
+
+toggle class `active`
+
+```tsx
+<section>
+	<button on:active={true}>toggle</button>
 </section>
 ```

@@ -26,16 +26,31 @@ export const removeComponentOrEl = function (item: HTMLElement, component: Compo
  * @unmountAndRemoveRegistry
  * unmount and remove registery from root component
  */
-export const unmountAndRemoveRegistry = (current: Component, key: number, component: Component) => {
-	if (component) {
-		component.$deep.registry = component.$deep.registry.filter((registry) => {
-			if (!(registry.component.constructor.name === current.constructor.name && registry.key === key)) {
-				return registry;
-			} else {
-				new Lifecycle(registry.component).unmount();
-				return false;
+
+type parentType = {
+	oldest: HTMLElement;
+	newest: HTMLElement;
+}
+
+export const unmountAndRemoveRegistry = ({oldest, newest}: parentType, node: HTMLElement, checkingSub?: boolean, foundCallback?: Function) => {
+	if(node) {
+		// not component
+		if(!node.$children && checkingSub) {
+			Array.from(Array.from(node.children)).forEach((nodes: HTMLElement) => {
+				unmountAndRemoveRegistry({oldest, newest}, nodes, true, foundCallback)
+			})
+			return;
+		}
+		// component
+		else {
+			if(node.$root) {
+				let check = findComponentNode(newest, node)
+				if(!check) {
+					removeRegistry(node.$root, node.$children, foundCallback)
+				}
 			}
-		});
+		}
+		return;
 	}
 };
 
@@ -65,3 +80,21 @@ export const mountComponentFromEl = (el: HTMLElement, componentName?: string, is
 export const findComponentNode = (parent: HTMLElement, item: HTMLElement) => {
 	return parent.querySelector(`[data-n="${item.$name}"][data-i="${item.key}"]`);
 };
+
+/**
+ * @removeRegistry
+ * remove registry and call unmount
+ */
+function removeRegistry(component: Component, current: Component, foundCallback?: Function) {
+	component.$deep.registry = component.$deep.registry.filter((registry) => {
+		if (registry.component.constructor.name === current.constructor.name && registry.key === current.$node.key) {
+			new Lifecycle(registry.component).unmount();
+			if(foundCallback) {
+				foundCallback()
+			}
+			return false;
+		} else {
+			return registry;
+		}
+	})
+}

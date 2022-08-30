@@ -1,10 +1,10 @@
-import { init } from "@blaze";
 import app from '@store/app'
 import ItemList from "./ItemList";
 import MediaQuery from "@root/plugin/mediaquery"
 
 export default function Sidebar() {
-	const { render, watch } = init(this);
+	// @ts-ignore
+	const { render, watch, mount } = init(this);
 	app(['openMenu', 'menu', 'active'], this);
 	MediaQuery("(max-width: 768px", (matches) => {
 		if(matches) {
@@ -29,7 +29,7 @@ export default function Sidebar() {
 			<div class="title">
 				<p>Blaze Script</p>
 			</div>
-			<div toggle="ctx.app.openMenu" id="overlay" class={this.ctx.app.openMenu ? 'open' : 'close'}></div>
+			<div on:toggle="ctx.app.openMenu" id="overlay" class={this.ctx.app.openMenu ? 'open' : 'close'}></div>
 			{this.ctx.app.menu.map((item) => (
 				<ItemList key={item.text} active={this.ctx.app.active} item={item} />
 			))}

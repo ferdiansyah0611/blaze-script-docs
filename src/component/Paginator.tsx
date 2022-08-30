@@ -1,7 +1,7 @@
-import { init } from "@blaze";
 import app from "@store/app";
 
 export default function Paginator() {
+	// @ts-ignore
 	const { render, state, watch, batch } = init(this);
 	app(['active', 'menu'], this);
 	state(null, {

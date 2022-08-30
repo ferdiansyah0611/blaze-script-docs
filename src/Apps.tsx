@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { init } from "@blaze";
 import { startIn } from "@root/plugin/router";
 import "@style/template.sass";
 import Sidebar from "@component/Sidebar";
@@ -28,15 +27,12 @@ export default function MyApp() {
 			});
 		});
 	});
-	effect(() => {
-		console.log(this.state.open);
-	}, this)
 	render(() => (
 		<div className="app">
 			{!this.state.open && <Sidebar />}
 			<div class={!this.state.open ? "close" : "open"} id="container">
 				<Navbar open={!this.state.open} />
-				<div d skip id="route"></div>
+				<div diff skip id="route"></div>
 			</div>
 		</div>
 	));

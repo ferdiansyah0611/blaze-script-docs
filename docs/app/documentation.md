@@ -2,7 +2,7 @@
 
 Create documentation web app with auto route generate from markdown file.
 
-## Without Step (Clone from blaze docs)
+## Without Step
 
 ```bash
 git clone git@github.com:ferdiansyah0611/blaze-script-docs.git mydoc && cd mydoc && npm i
@@ -17,17 +17,13 @@ npm i showdown
 ```tsx
 // Document.tsx
 
-import showdown from "showdown";
-
-function Markdown(text) {
-    var converter = new showdown.Converter(),
-        html = converter.makeHtml(text);
-    return html;
-}
+import Markdown from "@/lib/Markdown";
+import { EntityRender } from "@root/system/core";
+import { App } from "@root/system/global";
 
 export default function Document(Index, Container) {
     return {
-        render: (urlRequest, action) => {
+        render: async (urlRequest, action) => {
             const {
                 check,
                 page,
@@ -36,21 +32,20 @@ export default function Document(Index, Container) {
                 app,
 
                 EntityRouter,
-                popstate,
-                tool,
+                tool
             } = action;
 
             const entity = new EntityRouter(app, {}, tool);
 
             if (urlRequest === "/") {
                 const index = new EntityRender(Index, {
-                    arg: [window.$app[keyApplication]],
+                    arg: [App.get(keyApplication, 'app')],
                     key: keyApplication,
                 });
                 index
                     .before(() => {
                         entity.removePrevious();
-                        entity.handling(urlRequest, popstate);
+                        entity.handling(urlRequest);
                     })
                     .start()
                     .compile({
@@ -58,12 +53,14 @@ export default function Document(Index, Container) {
                         key: 0,
                     })
                     .replaceChildren(entry)
-                    .mount(app.$router.hmr)
+                    .mount(tool.hmr)
                     .saveToExtension()
                     .done(function () {
-                        entity.add(urlRequest, this.component);
-                        EntityRouter.change(app, urlRequest);
+                        console.log(this);
+                        entity.add(this.component);
+                        EntityRouter.change(urlRequest, tool);
                     });
+
                 return;
             }
 
@@ -71,16 +68,19 @@ export default function Document(Index, Container) {
                 config = {
                     url: [],
                 };
-            Object.assign(file, import.meta.glob("@app/docs/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/**/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/**/**/**/*.md", { as: "raw" }));
-            Object.assign(file, import.meta.glob("@app/docs/**/**/**/**/**/**/*.md", { as: "raw" }));
+
+            file = import.meta.glob([
+                "@app/docs/*.md",
+                "@app/docs/**/*.md",
+                "@app/docs/**/**/*.md",
+                "@app/docs/**/**/**/*.md",
+                "@app/docs/**/**/**/**/*.md",
+                "@app/docs/**/**/**/**/**/*.md",
+                "@app/docs/**/**/**/**/**/**/*.md"
+            ], { as: "raw" });
 
             for (let modules in file) {
-                let path = modules.split("../docs")[1].toLowerCase();
+                let path = modules.split("/docs")[1].toLowerCase();
                 if (path.match(".md") && !path.startsWith("/_")) {
                     let url = path.split(".md")[0];
                     url = url.replaceAll("[", ":").replaceAll("]", "");
@@ -99,17 +99,17 @@ export default function Document(Index, Container) {
             if (result) {
                 const container = new EntityRender(Container, {
                     inject: {
-                        html: Markdown(result.component),
+                        html: Markdown(await result.component()),
                         url: urlRequest,
                     },
-                    arg: [],
+                    arg: [App.get(keyApplication, 'app')],
                     key: keyApplication,
                 });
                 container
                     .before(() => {
                         entity.beforeEach(result.config);
                         entity.removePrevious();
-                        entity.handling(urlRequest, popstate);
+                        entity.handling(urlRequest);
                     })
                     .start()
                     .compile({
@@ -117,17 +117,18 @@ export default function Document(Index, Container) {
                         key: 0,
                     })
                     .replaceChildren(entry)
-                    .mount(app.$router.hmr)
+                    .mount(tool.hmr)
                     .saveToExtension()
                     .done(function () {
                         entity.afterEach(result.config);
-                        entity.add(urlRequest, this.component);
-                        EntityRouter.change(app, urlRequest);
+                        entity.add(this.component);
+                        EntityRouter.change(urlRequest, tool);
                     });
             }
         },
     };
 }
+
 ```
 
 ```tsx

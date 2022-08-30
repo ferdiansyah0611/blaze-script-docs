@@ -1,6 +1,5 @@
-import { init } from "@blaze";
-
 export default function ItemList() {
+	// @ts-ignore
 	const { render, state, watch, batch } = init(this);
 	state(null, {
 		open: true,
@@ -14,7 +13,7 @@ export default function ItemList() {
 		const { item, active } = this.props;
 		return (
 			<div class="detail">
-				<h5 class="flex" toggle="state.open">
+				<h5 class="flex" on:toggle="state.open">
 					<span class="flex-1">{item.text}</span>
 					<span class="material-symbols-outlined">{this.state.open ? 'expand_less' : 'expand_more'}</span>
 				</h5>

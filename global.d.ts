@@ -19,9 +19,9 @@ declare global {
         value: any;
         events?: any[];
         model?: string;
-        toggle?: string;
+        batch?: boolean;
         diff?: any;
-        refs?: number;
+        refs?: string;
         i?: any;
         key?: any;
         $index?: number;
