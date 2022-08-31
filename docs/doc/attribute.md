@@ -100,6 +100,16 @@ skip diffing a attribute, don't add this attribute if element interact with stat
 </section>
 ```
 
+## text
+
+by default, text node only work with state in (SPAN, P, H1, H2, H3, H4, H5, H6, A, BUTTON, CODE). But for different elements, must use the `text` attribute.
+
+```tsx
+<div text>
+	hello world {this.state.example}
+</div>
+```
+
 ## on:show
 
 Like a display block or none
