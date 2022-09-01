@@ -23,15 +23,3 @@ Make a state with different name.
 state("user", { name: "safina sahda" });
 console.log(this.user.name);
 ```
-
-## Destruction State
-
-```tsx
-const { info } = state("user", {
-    name: "safina sahda",
-    info: {
-        name: 'ferdiansyah'
-    }
-});
-info.name = "safina sahda"
-```

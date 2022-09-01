@@ -48,7 +48,7 @@ SVG element only work in "svg", "path", "g", "circle", "ellipse", "line". But if
 
 ## if & else
 
-Logical optional. Not recommendation if children is component because will call a component.
+Not recommendation if children is component because will call a component.
 
 ```tsx
 <section>
@@ -100,19 +100,19 @@ skip diffing a attribute, don't add this attribute if element interact with stat
 </section>
 ```
 
-## text
+## content
 
-by default, text node only work with state in (SPAN, P, H1, H2, H3, H4, H5, H6, A, BUTTON, CODE). But for different elements, must use the `text` attribute.
+by default, text node only work with state in (SPAN, P, H1, H2, H3, H4, H5, H6, A, BUTTON, CODE). But for different elements, must use the `content` attribute.
 
 ```tsx
-<div text>
+<div content>
 	hello world {this.state.example}
 </div>
 ```
 
 ## on:show
 
-Like a display block or none
+Toggle style display none
 
 ```tsx
 <section>

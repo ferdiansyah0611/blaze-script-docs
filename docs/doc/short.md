@@ -58,7 +58,7 @@ const Hello = function () {
 };
 ```
 
-## Auto Dependencies
+## Automatic
 
 Transform a file to auto write dependencies, add `// @ts-nocheck` on first line or `// @ts-ignore` in any before dependencies.
 

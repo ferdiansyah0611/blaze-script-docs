@@ -11,7 +11,6 @@
 -   JSX Syntax
 -   Batch
 -   Navigation, Cache Request, Form Validation And More
--   Auto Dependencies
 -   Uses few third-party packages
 -   Reactive Effect
 

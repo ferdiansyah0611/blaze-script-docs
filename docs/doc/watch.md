@@ -35,7 +35,8 @@ effect(() => {
 }, this)
 ```
 
-Don't update with same state/props/context. Error callstack size.
+
+When `this.props.status` changed, this effect can't run because assigment in same state
 
 ```tsx
 import { effect } from "@blaze";

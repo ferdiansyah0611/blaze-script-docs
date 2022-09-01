@@ -35,7 +35,7 @@ const App = context(
 					{ text: "Computed", link: "/doc/computed" },
 					{ text: "Event Listener", link: "/doc/event" },
 					{ text: "Model Input", link: "/doc/input" },
-					{ text: "Short Code & Auto Dependencies", link: "/doc/short" },
+					{ text: "Short Code", link: "/doc/short" },
 					{ text: "Multiple App", link: "/doc/multiple-app" },
 				],
 			},

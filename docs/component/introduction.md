@@ -91,7 +91,7 @@ const App = function() {
 
 ## Information
 
-Don't recommendation if fragment in first render
+Not recommendation if fragment in first render
 
 ```tsx
 const App = function() {
