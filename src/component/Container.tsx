@@ -39,7 +39,7 @@ export default function Container() {
         });
     });
     render(() => (
-        <div>
+        <div class="container-root">
             <div>
                 <div class="body" setHTML={this.html} skip></div>
                 <Paginator open={!(this.ctx.app.active === '/')} />
