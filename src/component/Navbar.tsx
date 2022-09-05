@@ -4,6 +4,12 @@ export default function Navbar() {
 	// @ts-ignore
 	const { render, mount, effect } = init(this);
 	app(['openMenu'], this);
+	mount(() => {
+		console.log('navbar');
+	})
+	// effect(() => {
+	// 	console.log(this.props.open, this.$node);
+	// })
 	render(() => (
 		<div id="navbar">
 			<div class="left">

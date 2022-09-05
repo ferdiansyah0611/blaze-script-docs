@@ -67,6 +67,11 @@ export interface InterfaceApp {
 export interface InterfaceBlaze {
 	run: any;
 }
+export interface VirtualEvent {
+	name: string;
+	call: () => any;
+	fn?: () => any;
+}
 
 export interface RegisteryComponent {
 	key: number;
@@ -113,6 +118,7 @@ export interface Component {
 		time?: string;
 		disableAddUnmount?: boolean;
 		active?: boolean;
+		queue?: any[];
 		// lifecycle
 		beforeCreate?: Function[];
 		created?: Function[];

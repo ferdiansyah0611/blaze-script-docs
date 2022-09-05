@@ -37,7 +37,7 @@ export default function Document(Index, Container) {
                     .mount(tool.hmr)
                     .saveToExtension()
                     .done(function () {
-                        console.log(this);
+                        this.component.$node["dataset"]["keep"] = true;
                         entity.add(this.component);
                         EntityRouter.change(urlRequest, tool);
                     });
@@ -101,6 +101,7 @@ export default function Document(Index, Container) {
                     .mount(tool.hmr)
                     .saveToExtension()
                     .done(function () {
+                        this.component.$node["dataset"]["keep"] = true;
                         entity.afterEach(result.config);
                         entity.add(this.component);
                         EntityRouter.change(urlRequest, tool);

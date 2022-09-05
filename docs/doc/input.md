@@ -1,6 +1,6 @@
 # Model Input
 
-Auto handling input with max 5 deep object and can trigger manually.
+Auto handling input and can trigger manually.
 
 ```tsx
 <div>

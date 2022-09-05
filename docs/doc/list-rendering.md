@@ -1,43 +1,58 @@
 # List Rendering
 
-This section about list rendering.
+To create a rendering list, it can be without a key or with a key. But there is a slight difference in the two things. It is highly recommended to use the key.
 
-## Without Key
-
-Without key, if array has add/remove and element gonna replacing with new children.
+## Without For
 
 ```tsx
 <div>
     {this.state.user.map((item: any) => (
         <div>
-            <p>{item.username}</p>
+            <Item item={item} key={item.title} />
         </div>
     ))}
 </div>
 ```
 
-## Unique Key
+Without for, it has the disadvantage that if one data in the array is deleted and has a component that is under children as in the example above, it will only delete the component element, not its main children. As follows
 
-With unique key, in anycase children not replacing but detect where element key has changed. Like deleting a key that doesn't exist, increase data array using `insertAdjacentElement`
-
-```tsx
+```html
 <div>
-    {this.state.user.map((item: any) => (
-        <div key={item.id}>
-            <p>{item.username}</p>
-        </div>
-    ))}
+    <!-- data has been deleted but children not deleted (on component) -->
+    <div></div>
+    <div>
+        <div data-n="Item" data-i="1">hello world</div>
+    </div>
+    <div>
+        <div data-n="Item" data-i="2">hello world</div>
+    </div>
 </div>
 ```
 
-## For
+## With for
 
-We recommendation use `for` if children a component
+But with for has the opposite function than without for as above.
 
 ```tsx
 <div for>
     {this.state.user.map((item: any) => (
-        <User key={item.id} item={item}/>
+        <div>
+            <Item item={item} key={item.title} />
+        </div>
     ))}
+</div>
+```
+
+If any data is deleted and the children have components, then the element will be deleted on the main children.
+
+```html
+<div>
+    <!-- component with key 0 children element is nothing -->
+    <div>
+        <div data-n="Item" data-i="1">hello world</div>
+    </div>
+    <div>
+        <div data-n="Item" data-i="2">hello world</div>
+    </div>
 </div>
 ```
