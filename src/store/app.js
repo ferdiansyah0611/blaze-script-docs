@@ -79,6 +79,12 @@ const App = context(
 				collapsed: true,
 				items: [{ text: "Blaze", link: "/api/blaze" }],
 			},
+			{
+				text: "Developer",
+				collapsible: true,
+				collapsed: true,
+				items: [{ text: "Completion", link: "/developer/completion" }],
+			},
 		],
 		active: "/",
 		openMenu: true,

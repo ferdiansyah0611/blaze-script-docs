@@ -1,8 +1,8 @@
 # Tips
 
-This section about tips
+Before write or learn, must be read this tips.
 
-## Usage Destruction State / Context
+## Usage Destruction State
 
 ```tsx
 const state = state(null, {
@@ -22,3 +22,7 @@ const update = () => {
 	state.id++
 }
 ```
+
+## Component
+
+Name component must be unique, but if not unique maybe error on hot reload.

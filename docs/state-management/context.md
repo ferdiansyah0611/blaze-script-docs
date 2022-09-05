@@ -43,3 +43,11 @@ To prevent useless rendering, use array where do you want trigger.
 // trigger only email changed.
 user(['email'], this);
 ```
+
+## Short
+
+```tsx
+const userContext = user(this);
+
+console.log(userContext.user.email);
+```
