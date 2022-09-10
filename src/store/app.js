@@ -37,6 +37,7 @@ const App = context(
 					{ text: "Model Input", link: "/doc/input" },
 					{ text: "Short Code", link: "/doc/short" },
 					{ text: "Multiple App", link: "/doc/multiple-app" },
+					{ text: "Extra Hook", link: "/doc/extra-hook" },
 				],
 			},
 			{
