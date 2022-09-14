@@ -25,4 +25,22 @@ const update = () => {
 
 ## Component
 
-Name component must be unique, but if not unique maybe error on hot reload.
+Name component must be unique, but if not unique maybe error on hot reload. Function must be ES6 because scope.
+
+Work
+
+```tsx
+function Button(){
+	init(this, "auto");
+	render(() => <div></div>)
+}
+```
+
+Doesn't Work
+
+```tsx
+const Button = () => {
+	init(this, "auto");
+	render(() => <div></div>)
+}
+```

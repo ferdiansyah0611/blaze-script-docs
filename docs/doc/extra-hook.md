@@ -25,3 +25,13 @@ export default function Index() {
 	));
 }
 ```
+
+## useId
+
+return value uuid unique.
+
+```tsx
+import { useId } from "@root/extra";
+
+console.log(useId());
+```
