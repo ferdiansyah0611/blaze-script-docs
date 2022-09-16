@@ -1,4 +1,5 @@
 $sidebar: 280px
+$heightNavbar: 56px
 
 .app
 	@apply flex
@@ -9,14 +10,14 @@ $sidebar: 280px
 		@apply text-white sticky top-0 h-screen overflow-auto z-10 pb-20 bg-black
 		@media (max-width: theme('screens.md'))
 			@apply fixed
-			height: calc(100vh - 40px)
-			margin-top: 40px
+			height: calc(100vh - $heightNavbar)
+			margin-top: $heightNavbar
 		transition: 1s all
 		&.close
 			margin-left: -$sidebar
 
 		.title
-			@apply font-bold p-2 border-b border-gray-400 sticky top-0 bg-black
+			@apply font-bold p-4 sticky top-0 bg-purple-800 hidden sm:block
 		.detail
 			@apply px-2
 			h5
@@ -44,18 +45,20 @@ $sidebar: 280px
 			backdrop-filter: blur(16px) saturate(150%)
 
 	#navbar
-		@apply sticky top-0 flex border-b border-gray-500 w-full z-10
-		background: #14141461
+		@apply sticky top-0 flex w-full z-10 bg-purple-800 px-4 md:px-14
+		box-shadow: 18px 1px 13px -1px #0e0e0ed1
 		backdrop-filter: blur(16px) saturate(150%)
 		.left
 			@apply flex-1 flex
-			a
-				@apply flex items-center gap-2
+			a, p
+				@apply flex items-center gap-2 pl-0
 
 		.right
 			@apply flex gap-2
+		&.active
+			box-shadow: 0px 1px 13px -1px #0e0e0ed1
 		a
-			@apply p-2
+			@apply p-4
 
 	#route
 		h1
@@ -117,7 +120,7 @@ $sidebar: 280px
 
 	.container-root
 		@apply flex overflow-auto
-		height: calc(100vh - 42px)
+		height: calc(100vh - $heightNavbar)
 		> div:nth-child(1)
 			.body
 				@apply p-4 md:p-10
