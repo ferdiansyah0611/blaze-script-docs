@@ -16,7 +16,7 @@ export default function Navbar() {
 						<span>Menu</span>
 					</a>
 					:
-					<p class="p-2 font-bold">Blaze Script</p>
+					<p class="font-bold">Blaze Script</p>
 				}
 			</div>
 			<div class="right">

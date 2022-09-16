@@ -1,5 +1,4 @@
-$sidebar: 280px
-$heightNavbar: 56px
+@import "./var.sass"
 
 .app
 	@apply flex
@@ -7,7 +6,8 @@ $heightNavbar: 56px
 	#sidebar
 		max-width: $sidebar
 		width: 100%
-		@apply text-white sticky top-0 h-screen overflow-auto z-10 pb-20 bg-black
+		@apply text-white sticky top-0 h-screen overflow-auto z-10 pb-20
+		background: $material
 		@media (max-width: theme('screens.md'))
 			@apply fixed
 			height: calc(100vh - $heightNavbar)
@@ -25,9 +25,12 @@ $heightNavbar: 56px
 			li
 				@apply flex
 			a
-				@apply p-1 flex-1 text-sm hover:bg-gray-900 text-gray-200
+				@apply p-1 flex-1 text-sm text-gray-200
+			a:hover
+				background: $material-2
 			a.active
-				@apply text-gray-200 border-purple-800 border-l-4 bg-gray-900
+				@apply text-gray-200 border-purple-800 border-l-4
+				background: $material-2
 		input
 			@apply bg-gray-900 text-white p-2 w-full outline-none text-sm
 
