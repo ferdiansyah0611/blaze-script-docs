@@ -24,11 +24,9 @@ export default function Hello(prevComponent, rootApp) {
 import { createApp } from "@root/render";
 const app = new createApp("#app", Hello, {
     dev: import.meta.env.DEV,
-    key: 0,
 });
 const about = new createApp("#about", Hello, {
     dev: import.meta.env.DEV,
-    key: 1,
 });
 app.mount();
 about.mount();

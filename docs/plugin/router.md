@@ -46,7 +46,7 @@ app.mount();
 
 ## Auto Route
 
-Auto route based on files in route folder with max 6 subfolder. Example:
+Auto route based on files in route folder or any folder. Example:
 
 ```text
 index.tsx   => /
@@ -63,7 +63,18 @@ admin/[id]/user.tsx     => /admin/:id/user
 ```tsx
 app.use(
     makeRouter("#route", {
-        auto: true,
+        // required
+        auto: import.meta.glob([
+            "@route/*.tsx",
+            "@route/**/*.tsx",
+            "@route/**/**/*.tsx",
+            "@route/**/**/**/*.tsx",
+            "@route/**/**/**/**/*.tsx",
+            "@route/**/**/**/**/**/*.tsx",
+            "@route/**/**/**/**/**/**/*.tsx",
+        ]),
+        // required
+        split: "/src/route",
         // optional (config for route)
         config: {
             "/": {
@@ -81,8 +92,7 @@ app.use(
 ```tsx
 import Loader from "path/component/Loader";
 
-let keyApp = 0;
-startIn(this, keyApp, Loader);
+startIn(this, Loader);
 ```
 
 ## Change page
@@ -133,28 +143,115 @@ this.$router.watch(data => {
 })
 ```
 
-## API
+# API
 
-### $router.go(go: number)
+## $router
 
-```tsx
-this.$router.go(-2)
-```
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Parameter</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>go</td>
+            <td>(go: number)</td>
+        </tr>
+        <tr>
+            <td>push</td>
+            <td>(url: string)</td>
+        </tr>
+        <tr>
+            <td>back</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>watch</td>
+            <td>((url: string) => any)</td>
+        </tr>
+    </tbody>
+</table>
 
-### $router.push(url: string)
+## makeRouter(entry: string, option: Option)
 
-```tsx
-this.$router.push('/home')
-```
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>url</td>
+            <td>Page[]</td>
+        </tr>
+        <tr>
+            <td>resolve</td>
+            <td>String</td>
+        </tr>
+        <tr>
+            <td>auto</td>
+            <td>Glob Vite</td>
+        </tr>
+        <tr>
+            <td>split</td>
+            <td>String</td>
+        </tr>
+        <tr>
+            <td>config</td>
+            <td>{string: Config}</td>
+        </tr>
+    </tbody>
+</table>
 
-### $router.back()
+## Config
 
-```tsx
-this.$router.back()
-```
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Argument</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>beforeEach</td>
+            <td>function</td>
+            <td>(router)</td>
+        </tr>
+        <tr>
+            <td>afterEach</td>
+            <td>function</td>
+            <td>(router)</td>
+        </tr>
+    </tbody>
+</table>
 
-### $router.watch((url: string) => any)
+## page(url, component, config)
 
-```tsx
-this.$router.watch((url) => console.log(url))
-```
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>url</td>
+            <td>string</td>
+        </tr>
+        <tr>
+            <td>component</td>
+            <td>Component</td>
+        </tr>
+        <tr>
+            <td>config</td>
+            <td>Config</td>
+        </tr>
+    </tbody>
+</table>
