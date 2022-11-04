@@ -37,16 +37,16 @@ export const unmountAndRemoveRegistry = (newest: Element, old: Element, checking
  * @mountComponentFromEl
  * mount all component from element
  */
-export const mountComponentFromEl = (el: Element, componentName?: string, isKey?: boolean) => {
-	if (el.$children) {
-		el.$children.$deep.mounted();
-		if (isKey && el.$children.key) {
-			el.$children.key();
+export const mountComponentFromEl = (el: ChildNode, componentName?: string, isKey?: boolean) => {
+	if (el['$children']) {
+		el['$children'].$deep.mounted();
+		if (isKey && el['$children'].key) {
+			el['$children'].key();
 		}
 		return;
 	}
-	if (el.$name === componentName) {
-		Array.from(el.children).forEach((node: Element) => {
+	if (el['$name'] === componentName) {
+		Array.from(el['children']).forEach((node: Element) => {
 			return mountComponentFromEl(node, componentName, isKey);
 		});
 	}
@@ -59,7 +59,7 @@ export const mountComponentFromEl = (el: Element, componentName?: string, isKey?
 export const mountSomeComponentFromEl = (
 	oldest: Element,
 	el: Element,
-	old: Element,
+	old: ChildNode,
 	componentName: string,
 	callback: () => any,
 	callbackComponent: () => any
@@ -69,7 +69,7 @@ export const mountSomeComponentFromEl = (
 		if (!latest) {
 			el.$children.$deep.mounted();
 		}
-		if (old && !old.$children) {
+		if (old && !old['$children']) {
 			callback();
 		}
 		if (callbackComponent) {
@@ -82,7 +82,7 @@ export const mountSomeComponentFromEl = (
 			return mountSomeComponentFromEl(
 				oldest,
 				node,
-				old ? old.children[i] : null,
+				old ? old['children'][i] : null,
 				componentName,
 				callback,
 				callbackComponent

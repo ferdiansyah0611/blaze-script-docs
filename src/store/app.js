@@ -78,7 +78,10 @@ const App = context(
 				text: "API",
 				collapsible: true,
 				collapsed: true,
-				items: [{ text: "Blaze", link: "/api/blaze" }],
+				items: [
+					{ text: "Blaze", link: "/api/blaze" },
+					{ text: "Plugin", link: "/api/plugin" },
+				],
 			},
 			{
 				text: "Developer",

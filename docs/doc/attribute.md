@@ -104,6 +104,8 @@ skip diffing a attribute, don't add this attribute if element interact with stat
 
 by default, text node only work with state in (SPAN, P, H1, H2, H3, H4, H5, H6, A, BUTTON, CODE). But for different elements, must use the `content` attribute.
 
+`"In the version 0.6 higher, this is removed and can work without content."`
+
 ```tsx
 <div content>
 	hello world {this.state.example}

@@ -540,7 +540,7 @@ function check(config: any, url: string, nested?: any) {
  */
 export const startIn = (component: Component, loader?: Function) => {
 	mount(() => {
-		let router = Router.get(component.$config.key);
+		let router = Router.get(component.$config?.key);
 		router.loader = loader;
 		router.ready(component);
 		window.addEventListener("popstate", () => {

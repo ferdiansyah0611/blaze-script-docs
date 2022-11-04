@@ -1,6 +1,6 @@
 # Transform
 
-Transorming file like a context and component.
+Transorming file like a context and component. `"In the version 0.6 higher, this feature has removed."`
 
 ## component(string)
 
