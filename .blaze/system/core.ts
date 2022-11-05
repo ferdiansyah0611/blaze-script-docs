@@ -281,23 +281,23 @@ export const equalProps = (oldProps, newProps) => {
 export class EntityRender implements EntityRenderType {
 	config: ConfigEntityRender;
 	component: Component | any;
-	$before: () => any;
-	$beforeCompile: (current: any) => any;
+	#before: () => any;
+	#beforeCompile: (current: any) => any;
 	constructor(component, config) {
 		this.component = component;
 		this.config = config;
 	}
 	before = (callback: (current: any) => any) => {
-		this.$before = callback.bind(this);
+		this.#before = callback.bind(this);
 		return this;
 	};
 	beforeCompile = (callback: (current: any) => any) => {
-		this.$beforeCompile = callback.bind(this);
+		this.#beforeCompile = callback.bind(this);
 		return this;
 	};
 	start = () => {
 		const { arg, key, inject } = this.config;
-		if (this.$before) this.$before();
+		if (this.#before) this.#before();
 
 		if (arg) this.component = new this.component(...arg);
 		else this.component = new this.component();
@@ -314,7 +314,7 @@ export class EntityRender implements EntityRenderType {
 		callback.bind(this)(this);
 	};
 	compile(option: EntityCompile) {
-		if (this.$beforeCompile) this.$beforeCompile(this);
+		if (this.#beforeCompile) this.#beforeCompile(this);
 		rendering(
 			this.component,
 			option.deep,

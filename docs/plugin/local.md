@@ -3,10 +3,26 @@
 localStorage Plugin for Component
 
 ```tsx
-const setUser = local("user", this);
+import local from "@root/plugin/local";
 
-const change = () => setUser("hi, " + Math.random(1000))
-const change2 = () => setUser((previous) => previous + ". hi, " + Math.random(1000))
+const userLocal = local("user", this);
+```
 
+## Access Value
+
+```tsx
 console.log(this.local.user)
+```
+
+## Update Value
+
+```tsx
+const change = () => userLocal("hi, " + Math.random(1000))
+const rechange = () => userLocal((previous) => previous + ". hi, " + Math.random(1000))
+```
+
+## Delete Value
+
+```tsx
+const clear = userLocal()
 ```
