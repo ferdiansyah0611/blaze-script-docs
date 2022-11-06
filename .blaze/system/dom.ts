@@ -16,7 +16,7 @@ export const unmountAndRemoveRegistry = (newest: Element, old: Element, checking
 	}
 	// not component
 	if (!old.$children && checkingSub) {
-		Array.from(old.children).forEach((olds: Element) => {
+		Array.from(old.childNodes).forEach((olds: Element) => {
 			unmountAndRemoveRegistry(newest, olds, true);
 		});
 		return;

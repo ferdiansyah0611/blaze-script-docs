@@ -366,8 +366,23 @@ export const diffChildren = (
 				};
 				let recursive = (real: Element, fake: ChildNode) => {
 					if (isTextNode(real, fake)) {
-						return diffText(real, fake, node.previousSibling)
+						diffText(real, fake, node.previousSibling)
+						// if node string === undefined
+						if (real && real.data && real.data === 'undefined') {
+							if (fake) {
+								real.replaceWith(fake)
+							}
+							else{
+								real.remove()
+							}
+						}
+						return;
 					};
+					// different nodename
+					if ((real && fake) && real.nodeName !== fake.nodeName) {
+						real.replaceWith(fake)
+						return;
+					}
 					if (real["$children"] || real["dataset"]["i"]) {
 						let defineNode = oldest["for"] ? node : real;
 						let find = real["$children"]
@@ -423,15 +438,6 @@ export const diffChildren = (
 					}
 				};
 				recursive(node, check);
-				// if node string === undefined
-				if (node && node.data && node.data === 'undefined') {
-					if (check) {
-						node.replaceWith(check)
-					}
-					else{
-						node.remove()
-					}
-				}
 
 				if (!isComponent && !check && node) {
 					node.remove();
@@ -447,8 +453,29 @@ export const diffChildren = (
 			newestChildren.forEach((node: Element, i: number) => {
 				let current = oldest.childNodes[i];
 				let isComponent = false;
-
-				if (isTextNode(current, node)) return diffText(current, node, oldest.childNodes[i - 1]);
+				// check textnode
+				if (isTextNode(current, node)) {
+					diffText(current, node, oldest.childNodes[i - 1]);
+					if (current && current.data && current.data === 'undefined') {
+						current.replaceWith(node)
+					}
+					return;
+				}
+				// different nodename
+				if ((current && node) && current.nodeName !== node.nodeName) {
+					if (current.dataset.n && !node.dataset.n) {
+						if (!findComponentNode(newest, current)) return;
+					}
+					if (!current.dataset.n && node.dataset.n) {
+						if (findComponentNode(oldest, node)) return;
+					}
+					if (current.dataset.n && node.dataset.n) {
+						if (findComponentNode(newest, current)) return;
+					}
+					current.replaceWith(node)
+					return;
+				}
+				// mount if component
 				mountSomeComponentFromEl(
 					oldest,
 					node,
@@ -461,10 +488,12 @@ export const diffChildren = (
 						isComponent = true;
 					}
 				);
+				// diffing a element and not component
 				if (!isComponent && oldest.childNodes[i]) {
 					nextDiffChildren(Array.from(oldest.childNodes[i].childNodes), node, component, hmr);
 					return;
 				}
+				// insert element
 				if (!oldest.childNodes[i]) {
 					let insertNonText = oldest.childNodes[i - 1]["insertAdjacentElement"];
 					if (insertNonText) {
