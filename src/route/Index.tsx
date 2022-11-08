@@ -101,7 +101,10 @@ export default function Index() {
 			<div className="index">
 				<section class="introduction containers">
 					<div class="description">
-						<h1>Blaze Script</h1>
+						<h1 class="flex items-center gap-4">
+							Blaze Script
+							<span class="text-sm text-red-500 border border-red-500 p-1">Experimental</span>
+						</h1>
 						<h2>Framework Single Page Application</h2>
 						<p>Reactivity For Building Modern User Interfaces</p>
 						<div>

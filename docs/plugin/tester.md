@@ -24,3 +24,9 @@ if (import.meta.env.DEV) {
 	app.use(withTest(testing));
 }
 ```
+
+Add tag on index.html
+
+```html
+<div id="extension"></div>
+```
