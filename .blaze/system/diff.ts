@@ -1,14 +1,7 @@
-import {
-	unmountAndRemoveRegistry,
-	mountComponentFromEl,
-	findComponentNode,
-	mountSomeComponentFromEl,
-	removeRegistry,
-} from "./dom";
+import Dom from "./dom";
 import { Component, VirtualEvent } from "../blaze.d";
 import Lifecycle from "./lifecycle";
 import { isTextNode } from "./constant";
-import { makeRefs } from "./dom";
 import { getBlaze } from "./core";
 
 /**
@@ -38,10 +31,10 @@ const diff = function (prev: Element, el: Element, component: Component, hmr: Co
 	if (!isText && prev["dataset"]["i"] && el["dataset"]["i"] && prev["dataset"]["i"] !== el["dataset"]["i"]) {
 		// if component
 		if (prev["dataset"]["n"] && el["dataset"]["n"] && prev["$root"]) {
-			removeRegistry(prev.$children.$root, prev.$children, true);
+			Dom.destroyRegistry({ parent: prev.$children.$root, active: prev.$children, isDisableRemove: true });
 			prev.replaceWith(el.$children.$node);
 			if (!el.$children.$deep.hasMount) {
-				mountComponentFromEl(el);
+				Dom.mountComponent({ el })
 			}
 		} else {
 			prev["dataset"].i = el.key;
@@ -75,14 +68,14 @@ const diff = function (prev: Element, el: Element, component: Component, hmr: Co
 			prev.key = el.key || 0;
 			prev["replaceChildren"](...Array.from(el.childNodes));
 			prev.$children.$node = prev;
-			mountComponentFromEl(prev);
+			Dom.mountComponent({ el: prev });
 		});
 	}
 	// text node
 	if (isText) {
-		if (prev.data !== el.data) {
+		if (prev["data"] !== el["data"]) {
 			zip.push(() => {
-				prev["replaceData"](0, -1, el.data);
+				prev["replaceData"](0, -1, el["data"]);
 			});
 		}
 	}
@@ -91,7 +84,7 @@ const diff = function (prev: Element, el: Element, component: Component, hmr: Co
 		let lifecycle = new Lifecycle(component);
 		if (!prev.refs && el.refs) {
 			zip.push(() => {
-				makeRefs(component, el.refs, prev);
+				Dom.makeRefs({ component, name: el.refs, el: prev });
 				lifecycle.effect(el.refs);
 			});
 		} else if (prev.refs && !el.refs) {
@@ -102,7 +95,7 @@ const diff = function (prev: Element, el: Element, component: Component, hmr: Co
 		} else if (prev.refs !== el.refs) {
 			zip.push(() => {
 				prev.removeAttribute("refs");
-				makeRefs(component, el.refs, prev);
+				Dom.makeRefs({ component, name: el.refs, el: prev });
 				lifecycle.effect(el.refs);
 			});
 		}
@@ -345,12 +338,14 @@ export const diffChildren = (
 				oldest["replaceWith"](newest)
 			}
 			Array.from(oldest.childNodes).forEach((node: Element) => {
-				mountComponentFromEl(node, component.constructor.name, true);
+				Dom.mountComponent({ el: node, name: component.constructor.name, isKey: true});
 			});
 			return;
 		} else if (oldest.childNodes.length && !newest.childNodes.length) {
 			oldestChildren.forEach((node: Element) => {
-				unmountAndRemoveRegistry(newest, node, true);
+				Dom.destroyComponent({
+					parentFake: newest, active: node, isCheckSub: true
+				})
 				node.remove();
 			});
 			oldest["replaceChildren"](...newestChildren);
@@ -362,13 +357,16 @@ export const diffChildren = (
 				let isComponent = false;
 				let withoutKey = false;
 				let unmounted = (real: Element) => {
-					real.$children && removeRegistry(real.$children.$root, real.$children, true);
+					real.$children && Dom.destroyRegistry({ parent: real.$children.$root, active: real.$children, isDisableRemove: true });
 				};
 				let recursive = (real: Element, fake: ChildNode) => {
 					if (isTextNode(real, fake)) {
+						Dom.destroyComponent({
+							parentFake: newest, active: real, isCheckSub: true
+						})
 						diffText(real, fake, node.previousSibling)
 						// if node string === undefined
-						if (real && real.data && real.data === 'undefined') {
+						if (real && real["data"] && real["data"] === 'undefined') {
 							if (fake) {
 								real.replaceWith(fake)
 							}
@@ -380,13 +378,32 @@ export const diffChildren = (
 					};
 					// different nodename
 					if ((real && fake) && real.nodeName !== fake.nodeName) {
+						// if component
+						if (real["dataset"]["n"] && fake["dataset"]["n"]) {
+							// different component
+							if (real["dataset"]["n"] !== fake["dataset"]["n"]) {
+								const realCheckOnFake = Dom.find({ parent: newest, item: real })
+								if (!realCheckOnFake) {
+									Dom.destroyComponent({
+										parentFake: newest, active: real, isCheckSub: true, isDisableRemove: true
+									})
+									Dom.mountComponentElement({
+										parentReal: oldest, el: fake as Element, current: real, name: component.constructor.name
+									})
+								}
+							}
+						}
 						real.replaceWith(fake)
+
+						if (fake["$children"]) {
+							fake["$children"].$node = fake
+						}
 						return;
 					}
 					if (real["$children"] || real["dataset"]["i"]) {
 						let defineNode = oldest["for"] ? node : real;
 						let find = real["$children"]
-							? findComponentNode(newest, real)
+							? Dom.find({ parent: newest, item: real })
 							: newest.querySelector(`[data-i="${real["dataset"]["i"]}"]`);
 						isComponent = true;
 						withoutKey = false;
@@ -410,7 +427,7 @@ export const diffChildren = (
 											replace = fake["$children"].$node;
 										action.push(() => real.replaceWith(replace));
 										if (fake["$children"] && !fake["$children"].$deep.hasMount) {
-											mountComponentFromEl(fake);
+											Dom.mountComponent({ el: fake })
 										}
 									} else {
 										action.push(() => defineNode.remove());
@@ -453,41 +470,46 @@ export const diffChildren = (
 			newestChildren.forEach((node: Element, i: number) => {
 				let current = oldest.childNodes[i];
 				let isComponent = false;
-				// check textnode
 				if (isTextNode(current, node)) {
 					diffText(current, node, oldest.childNodes[i - 1]);
-					if (current && current.data && current.data === 'undefined') {
-						current.replaceWith(node)
+					if (current && current["data"] && current["data"] === 'undefined') {
+						Dom.mountComponentElement({
+							parentReal: oldest, el: node, current, name: component.constructor.name
+						})
+						current.replaceWith(node);
 					}
 					return;
 				}
 				// different nodename
 				if ((current && node) && current.nodeName !== node.nodeName) {
-					if (current.dataset.n && !node.dataset.n) {
-						if (!findComponentNode(newest, current)) return;
+					// component
+					if (current["dataset"]["n"] || node["dataset"]["n"]) {
+						let findNewNode = Dom.find({ parent: newest, item: current as Element });
+						if (!findNewNode) {
+							Dom.destroyComponent({
+								parentFake: newest, active: current as Element, isCheckSub: true, isDisableRemove: true
+							})
+						}
 					}
-					if (!current.dataset.n && node.dataset.n) {
-						if (findComponentNode(oldest, node)) return;
-					}
-					if (current.dataset.n && node.dataset.n) {
-						if (findComponentNode(newest, current)) return;
-					}
+					Dom.mountComponentElement({
+						parentReal: oldest, el: node, current, name: component.constructor.name
+					})
 					current.replaceWith(node)
 					return;
 				}
 				// mount if component
-				mountSomeComponentFromEl(
-					oldest,
-					node,
+				Dom.mountComponentElement({
+					parentReal: oldest,
+					el: node,
 					current,
-					component.constructor.name,
-					() => {
+					name: component.constructor.name,
+					callback(){
 						oldest.childNodes[i]["insertAdjacentElement"]("beforebegin", node);
 					},
-					() => {
+					callbackComponent(){
 						isComponent = true;
 					}
-				);
+				})
 				// diffing a element and not component
 				if (!isComponent && oldest.childNodes[i]) {
 					nextDiffChildren(Array.from(oldest.childNodes[i].childNodes), node, component, hmr);

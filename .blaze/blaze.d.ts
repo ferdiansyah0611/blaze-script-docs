@@ -14,8 +14,6 @@ export interface AppType {
 	use: (plugin: any) => any;
 	componentProcess: (argument: ComponentProcessArgType) => any;
 	componentUpdate: (component: Component, newComponent: Component) => any;
-	isComponent: (component: Component) => boolean;
-	isSameName: (component: Component, newComponent: Component) => boolean;
 	reloadRegistry: (component: Component, previous?: Component) => any;
 	reload: (newHmr: any[], isStore: any) => any;
 }
@@ -49,6 +47,27 @@ export interface BlazeType {
 	onStartComponent: any[];
 	onEndComponent: any[];
 	onDirective: any[];
+}
+
+/**
+ * @InitType
+ * init type of component
+ */
+export interface InitType{
+	beforeCreate: (callback: () => any) => any;
+    created: (callback: () => any) => any;
+    mount: (callback: () => any) => any;
+    beforeUpdate: (callback: () => any) => any;
+    updated: (callback: () => any) => any;
+    layout: (callback: () => any) => any;
+    dispatch: (name: string, data: any, autoBatching?: boolean) => any;
+    render: (callback: () => HTMLElement) => any;
+    batch: (callback: () => any) => any;
+    state: <T>(name: State<T>["name"], initial: T, component: State<T>["component"], call?: any) => any;
+    watch: (dependencies: Watch["dependencies"], handle: Watch["handle"]) => any;
+    effect: (callback: () => any) => any;
+    computed: (callback: () => any) => any;
+    defineProp: (props: any) => any;
 }
 
 /**
@@ -150,7 +169,6 @@ export interface Component {
 		dev: boolean;
 		key?: number;
 	};
-	__proto__: any;
 }
 
 /**
@@ -193,6 +211,4 @@ export type EntityRenderType = {
 	remove(notNode?: boolean);
 	replaceChildren(entry: string);
 	appendChild(target: HTMLElement);
-	$before: () => any;
-	$beforeCompile: (current: any) => any;
 }

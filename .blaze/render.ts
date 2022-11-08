@@ -4,6 +4,7 @@ import Lifecycle from "./system/lifecycle";
 import { diffChildren } from "./system/diff";
 import isEqualWith from "lodash.isequalwith";
 import { Store, HMR, App } from "./system/global";
+import { isComponent, isSameName } from "./system/constant";
 import withError from "@root/plugin/error";
 
 /**
@@ -147,16 +148,14 @@ export class createApp implements AppType {
 
 		return newComponent;
 	}
-	isComponent = (component) => component.toString().indexOf("init(this)") !== -1;
-	isSameName = (component, newComponent) => newComponent && component && newComponent.name === component.constructor.name;
 	reloadRegistry = (component: Component, previous?: Component) => {
 		let hmrArray = HMR.get();
 		let newComponent = hmrArray.find(
-			(newComponents) => this.isSameName(component, newComponents) && this.isComponent(newComponents)
+			(newComponents) => isSameName(component, newComponents) && isComponent(newComponents)
 		);
 		if (newComponent) {
 			Object.assign(component, this.componentProcess({ component, newComponent, key: component.props.key, previous }));
-			component.__proto__.constructor = newComponent;
+			component["__proto__"].constructor = newComponent;
 		}
 		component.$deep.registry.map((data) => this.reloadRegistry(data, component));
 		return component;
@@ -189,7 +188,7 @@ export class createApp implements AppType {
 		}
 
 		let newComponent = newHmr.find(
-			(newComponents) => this.isSameName(this.app, newComponents) && this.isComponent(newComponents)
+			(newComponents) => isSameName(this.app, newComponents) && isComponent(newComponents)
 		);
 		if (newComponent) {
 			Object.assign(this.app, this.componentProcess({ component: this.app, newComponent, key: 0 }));

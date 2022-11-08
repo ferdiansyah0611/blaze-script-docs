@@ -22,9 +22,10 @@ Supporting function in init
 
 ```tsx
 import App, { init } from "@blaze";
+import { InitType } from "@blaze.d";
 
 const App = function () {
-    const { render, mount, layout, state, effect } = init(this);
+    const { render, mount, layout, state, effect }: InitType = init(this);
     state(null, {
         id: 1,
     });

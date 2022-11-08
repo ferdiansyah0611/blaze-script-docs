@@ -65,6 +65,7 @@ About function or class or etc use in system of blaze
 import {
 	AppType,
 	BlazeType,
+	InitType,
 	ComponentProcessArgType,
 	VirtualEvent,
 	RegisteryComponent,

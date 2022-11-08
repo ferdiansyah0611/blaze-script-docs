@@ -2,8 +2,10 @@ import { Component, Mount } from "../blaze.d";
 
 export default class Lifecycle {
 	#component: Component;
+	error: any;
 	constructor(component) {
 		this.#component = component;
+		this.error = window.$error;
 	}
 	/**
 	 * @mount
