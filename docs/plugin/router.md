@@ -74,6 +74,8 @@ app.use(
             "@route/**/**/**/**/**/**/*.tsx",
         ]),
         // required
+        // why "/src/route" ? because auto object in the top have value glob @route
+        // where @route is alias import by "/src/route"
         split: "/src/route",
         // optional (config for route)
         config: {
@@ -138,9 +140,30 @@ const TestParam = function (app) {
 ## Listener Route
 
 ```tsx
-this.$router.watch(data => {
-    console.log('url :', data)
-})
+this.$router.watch((data) => {
+    console.log("url :", data);
+});
+```
+
+## Hash Routing
+
+```tsx
+makeRouter("#route", {
+    hash: true,
+});
+```
+
+## Customize Path 404
+
+```tsx
+makeRouter("#route", {
+    url: [
+        page("/", Index),
+        page("", NotFound, {
+            url: "/code/404",
+        }),
+    ],
+});
 ```
 
 # API
