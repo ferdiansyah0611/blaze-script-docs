@@ -140,9 +140,11 @@ const TestParam = function (app) {
 ## Listener Route
 
 ```tsx
-this.$router.watch((data) => {
-    console.log("url :", data);
-});
+beforeCreate(() => {
+    this.$router.watch((data) => {
+        console.log("url :", data);
+    });
+})
 ```
 
 ## Hash Routing
