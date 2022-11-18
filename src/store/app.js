@@ -10,6 +10,7 @@ const App = context(
 					{ text: "Home", link: "/" },
 					{ text: "What is blaze script", link: "/guide/what-is-blaze-script" },
 					{ text: "Tips", link: "/guide/tips" },
+					{ text: "CLI", link: "/guide/cli" },
 				],
 			},
 			{
