@@ -38,12 +38,10 @@ export default function Apps() {
 // main.ts
 import MyApp from "@/Apps";
 import { createApp } from "@root/render";
-import withError from "@root/plugin/error";
 
-const app = new createApp("#app", MyApp, {
+const app = new createApp(MyApp, {
     dev: false,
 });
-app.use(withError());
 app.mount();
 ```
 

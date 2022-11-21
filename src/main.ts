@@ -15,7 +15,7 @@ import Container from "@component/Container";
 import Document from "./lib/Document";
 import Index from "@route/Index";
 
-const app = new createApp("#app", MyApp, {
+const app = new createApp(MyApp, {
     dev: false,
 });
 app.use(
@@ -29,5 +29,5 @@ app.use(
         }
     })
 );
-app.use(withExtension("#extensions", import.meta.env.DEV));
+app.use(withExtension(import.meta.env.DEV));
 app.mount();

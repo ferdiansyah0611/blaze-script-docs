@@ -7,13 +7,7 @@ Extension tools for view component, log, console, etc.
 ```tsx
 import { withExtension } from "@root/plugin/extension";
 
-app.use(withExtension("#extension-app", import.meta.env.DEV));
-```
-
-Add this tag to index.html
-
-```html
-<div id="extension-app"></div>
+app.use(withExtension(import.meta.env.DEV));
 ```
 
 ## Logger

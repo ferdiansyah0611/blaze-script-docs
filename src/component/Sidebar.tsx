@@ -27,6 +27,7 @@ export default function Sidebar() {
 	render(() => (
 		<div id="sidebar" class={this.ctx.app.openMenu ? 'open' : 'close'}>
 			<div class="title">
+				<img class="logo" src="/logo192.png" alt=""/>
 				<p>Blaze Script</p>
 			</div>
 			<div on:toggle="ctx.app.openMenu" id="overlay" class={this.ctx.app.openMenu ? 'open' : 'close'}></div>

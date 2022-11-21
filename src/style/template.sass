@@ -2,6 +2,10 @@
 
 .app
 	@apply flex
+	.logo
+		width: 22px
+		height: 22px
+		@apply rounded-full
 
 	#sidebar
 		max-width: $sidebar
@@ -17,7 +21,7 @@
 			margin-left: -$sidebar
 
 		.title
-			@apply font-bold p-4 sticky top-0 bg-purple-800 hidden sm:block
+			@apply font-bold p-4 sticky top-0 bg-purple-800 hidden sm:flex items-center gap-4
 		.detail
 			@apply px-2
 			h5
